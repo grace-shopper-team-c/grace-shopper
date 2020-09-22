@@ -11,7 +11,7 @@ const getAllItems = items => {
   }
 }
 
-export const fetchAllitems = () => {
+export const fetchAllItems = () => {
   return async dispatch => {
     try {
       const response = await axios.get('/api/items')

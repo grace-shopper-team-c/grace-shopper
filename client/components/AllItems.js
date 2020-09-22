@@ -1,5 +1,5 @@
 import React from 'react'
-import {fetchAllItems} from '../store/Items'
+import {fetchAllItems} from '../store/items'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
@@ -11,7 +11,7 @@ class AllItems extends React.Component {
   render() {
     return (
       <div>
-        {this.props.Items.map(item => (
+        {this.props.items.map(item => (
           <Link to={`/products/${item.id}`} key={item.id}>
             <div>
               <img src={item.image} />
@@ -30,7 +30,7 @@ class AllItems extends React.Component {
 
 const mapState = state => {
   return {
-    Items: state.Items
+    items: state.items
   }
 }
 
