@@ -10,7 +10,7 @@ async function seed() {
   const items = await Promise.all([
     Item.create({
       name: 'Face Wash',
-      category: 'skin care',
+      category: 'skin',
       quantity: 0,
       price: 30.99,
       image:
@@ -20,7 +20,7 @@ async function seed() {
     }),
     Item.create({
       name: 'Thor Hair',
-      category: 'hair care',
+      category: 'hair',
       quantity: 0,
       price: 36.99,
       image:
@@ -29,7 +29,7 @@ async function seed() {
     }),
     Item.create({
       name: 'Everyday Cleaning Gloves',
-      category: 'cleaning supplies',
+      category: 'cleaning',
       quantity: 3,
       price: 9.99,
       image:
@@ -39,7 +39,7 @@ async function seed() {
     }),
     Item.create({
       name: 'Calming Nature',
-      category: 'candles',
+      category: 'candle',
       quantity: 5,
       price: 24.99,
       image:
