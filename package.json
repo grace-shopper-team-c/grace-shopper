@@ -62,7 +62,8 @@
     "redux-thunk": "^2.3.0",
     "sequelize": "^5.3.1",
     "socket.io": "^2.2.0",
-    "startbootstrap-shop-homepage": "^4.2.2"
+    "startbootstrap-shop-homepage": "^4.2.2",
+    "styled-components": "^5.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
