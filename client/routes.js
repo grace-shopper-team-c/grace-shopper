@@ -2,8 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome} from './components'
-import AllItems from './components/AllItems'
+import {Login, Signup, UserHome, AllItems, SingleItem} from './components'
 import {me} from './store'
 
 /**
@@ -19,7 +18,7 @@ class Routes extends Component {
 
     return (
       <Switch>
-        <Route path="/" component={AllItems} />
+        <Route exact path="/" component={AllItems} />
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
@@ -30,6 +29,7 @@ class Routes extends Component {
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
+        <Route path="/:itemId" component={SingleItem} />
         <Route component={Login} />
       </Switch>
     )
