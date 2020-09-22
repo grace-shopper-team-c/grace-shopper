@@ -23,7 +23,7 @@ class AllItems extends React.Component {
     return (
       <div>
         {this.props.items.map(item => (
-          <Link to={`/products/${item.id}`} key={item.id}>
+          <Link to={`/${item.id}`} key={item.id}>
             <div>
               <img src={item.image} />
             </div>

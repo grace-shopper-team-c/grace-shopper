@@ -1,8 +1,8 @@
 'use strict'
 /* global describe it */
-
+const {expect} = require('chai')
 const seed = require('./seed')
-const {Item, User} = require('../server/db')
+const {Item, User} = require('../server/db/models')
 
 describe('seed script', () => {
   it('completes successfully', seed)
