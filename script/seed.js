@@ -1,18 +1,74 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {Item, User} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
-  const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
+  const items = await Promise.all([
+    Item.create({
+      name: 'Face Wash',
+      category: 'skin care',
+      quantity: 0,
+      price: 30.99,
+      image:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR156OdyJqgpqr1MSJAZjEsDwQy6ipjz2LnCTUtpe9l4FLurMeiYCrWbJUIfc-BJXeITDCV9cc&usqp=CAc',
+      description:
+        'The face wash thats perfect for those splashing water on your face moments'
+    }),
+    Item.create({
+      name: 'Thor Hair',
+      category: 'hair care',
+      quantity: 0,
+      price: 36.99,
+      image:
+        'https://external-preview.redd.it/fiuiCSjD_hrtGv92DLk1z2qRpweIWwazJehh4cYd68U.jpg?auto=webp&s=60f122a6fd4e75984d62cdfbc8011bcbfc086f30',
+      description: 'For those luscious locks!'
+    }),
+    Item.create({
+      name: 'Everyday Cleaning Gloves',
+      category: 'cleaning supplies',
+      quantity: 3,
+      price: 9.99,
+      image:
+        'https://images-na.ssl-images-amazon.com/images/I/71ioBYTvABL._AC_SL1500_.jpg',
+      description:
+        'Just your average, wear everyday, style of glove. Perfect for cleaning the stains off those tough dishes or for taking out the trash!'
+    }),
+    Item.create({
+      name: 'Calming Nature',
+      category: 'candles',
+      quantity: 5,
+      price: 24.99,
+      image:
+        'https://images-na.ssl-images-amazon.com/images/I/71K530MlZwL._AC_SL1500_.jpg',
+      description:
+        'The perfect scent to smell the outdoors while indoors as well as help you relieve your stress'
+    })
   ])
 
-  console.log(`seeded ${users.length} users`)
+  const users = await Promise.all([
+    User.create({
+      name: 'Brosef Stalin',
+      email: 'brosef.stalin@email.com',
+      password: 'bahamamama',
+      address: '1234 Bro Lane, Fern, Colorado, 13456'
+    }),
+    User.create({
+      name: 'Seymour Cheeks',
+      email: 'bartFan4ever@email.com',
+      password: 'squiggle',
+      address: '742 Evergreen Terrace, Springfield, Oregan, 43522'
+    })
+  ])
+  // const users = await Promise.all([
+  //   User.create({email: 'cody@email.com', password: '123'}),
+  //   User.create({email: 'murphy@email.com', password: '123'})
+  // ])
+
+  console.log(`seeded ${users.length} users & ${items.length} items`)
   console.log(`seeded successfully`)
 }
 
