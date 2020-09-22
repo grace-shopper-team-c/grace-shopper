@@ -1,10 +1,10 @@
 const router = require('express').Router()
-const {Product} = require('../db')
+const {Item} = require('../db')
 
 router.get('/', async (req, res, next) => {
   try {
-    const products = await Product.findAll()
-    res.send(products)
+    const items = await Item.findAll()
+    res.send(items)
   } catch (error) {
     next(error)
   }

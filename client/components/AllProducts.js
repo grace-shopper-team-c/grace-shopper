@@ -1,25 +1,25 @@
 import React from 'react'
-import {fetchAllProducts} from '../store/products'
+import {fetchAllItems} from '../store/Items'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
-class AllProducts extends React.Component {
+class AllItems extends React.Component {
   componentDidMount() {
-    this.props.getProducts()
+    this.props.getItems()
   }
 
   render() {
     return (
       <div>
-        {this.props.products.map(product => (
-          <Link key={product.id}>
+        {this.props.Items.map(item => (
+          <Link to={`/products/${item.id}`} key={item.id}>
             <div>
-              <img src={product.Image} />
+              <img src={item.image} />
             </div>
             <div>
-              <h3>{product.Title}</h3>
-              <h3>{product.Price}</h3>
-              <p>{product.Description}</p>
+              <h3>{item.name}</h3>
+              <h3>{item.price}</h3>
+              <p>{item.description}</p>
             </div>
           </Link>
         ))}
@@ -30,14 +30,14 @@ class AllProducts extends React.Component {
 
 const mapState = state => {
   return {
-    products: state.products
+    Items: state.Items
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    getProducts: () => dispatch(fetchAllProducts())
+    getItems: () => dispatch(fetchAllItems())
   }
 }
 
-export default connect(mapState, mapDispatch)(AllProducts)
+export default connect(mapState, mapDispatch)(AllItems)

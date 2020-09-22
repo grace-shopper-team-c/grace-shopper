@@ -1,35 +1,35 @@
 import axios from 'axios'
 
-const initialProducts = []
+const initialItems = []
 
-const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS'
+const GET_ALL_ITEMS = 'GET_ALL_ITEMS'
 
-const getAllProducts = products => {
+const getAllItems = items => {
   return {
-    type: getAllProducts,
-    products: products
+    type: GET_ALL_ITEMS,
+    items: items
   }
 }
 
-export const fetchAllProducts = () => {
+export const fetchAllitems = () => {
   return async dispatch => {
     try {
-      const response = await axios.get('/api/products')
-      const products = response.data
-      dispatch(getAllProducts(products))
+      const response = await axios.get('/api/items')
+      const items = response.data
+      dispatch(getAllItems(items))
     } catch (error) {
       console.error(error.message)
     }
   }
 }
 
-const productsReducer = (products = initialProducts, action) => {
+const itemsReducer = (items = initialItems, action) => {
   switch (action.type) {
-    case GET_ALL_PRODUCTS:
-      return action.products
+    case GET_ALL_ITEMS:
+      return action.items
     default:
-      return products
+      return items
   }
 }
 
-export default productsReducer
+export default itemsReducer
