@@ -11,7 +11,7 @@ async function seed() {
     Item.create({
       name: 'Face Wash',
       category: 'skin',
-      quantity: 0,
+      quantity: 6,
       price: 30.99,
       image:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR156OdyJqgpqr1MSJAZjEsDwQy6ipjz2LnCTUtpe9l4FLurMeiYCrWbJUIfc-BJXeITDCV9cc&usqp=CAc',
@@ -21,7 +21,7 @@ async function seed() {
     Item.create({
       name: 'Thor Hair',
       category: 'hair',
-      quantity: 0,
+      quantity: 7,
       price: 36.99,
       image:
         'https://external-preview.redd.it/fiuiCSjD_hrtGv92DLk1z2qRpweIWwazJehh4cYd68U.jpg?auto=webp&s=60f122a6fd4e75984d62cdfbc8011bcbfc086f30',
