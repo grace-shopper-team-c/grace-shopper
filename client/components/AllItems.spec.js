@@ -3,29 +3,40 @@ import React from 'react'
 import enzyme, {shallow} from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import AllItems from './AllItems'
+import configureMockStore from 'redux-mock-store'
+import {Provider} from 'react-redux'
+
+const mockStore = configureMockStore()
 
 const adapter = new Adapter()
 enzyme.configure({adapter})
 
 describe('AllItem', () => {
   let allItem
-
+  let store
   const items = [
     {
-      id: 1,
-      name: 'HappySoap',
-      price: 9.99
+      name: 'OroHEY Hair',
+      category: 'hair',
+      price: '12.99',
+      image: 'https://i.kym-cdn.com/photos/images/facebook/000/929/796/37f.png',
+      id: 1
     }
   ]
 
   beforeEach(() => {
-    allItem = shallow(<AllItems items={items} />)
+    store = mockStore()
+    allItem = shallow(
+      <Provider store={store}>
+        <AllItems items={items} />
+      </Provider>
+    )
   })
 
-  it('renders the Name in an h3', () => {
-    expect(allItem.find('h3').text()).to.be.equal('Happy Soap')
+  it('renders the Name', () => {
+    expect(allItem.text()).to.include('OroHEY Hair')
   })
-  it('renders the price in an h3', () => {
-    expect(allItem.find('h3').text()).to.be.equal('9.99')
+  it('renders the price', () => {
+    expect(allItem.text()).to.include('12.99')
   })
 })
