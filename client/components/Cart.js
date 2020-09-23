@@ -42,7 +42,7 @@ class Cart extends React.Component {
         </div>
         <div>
           {this.props.cart.map(item => (
-            <Link to={`/products/${item.id}`} key={item.id}>
+            <Link to={`/${item.id}`} key={item.id}>
               <div>
                 <img src={item.image} />
               </div>
