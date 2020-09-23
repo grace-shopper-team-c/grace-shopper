@@ -53,14 +53,22 @@ async function seed() {
     User.create({
       // name: 'Brosef Stalin',
       email: 'brosef.stalin@email.com',
-      password: 'bahamamama'
-      // address: '1234 Bro Lane, Fern, Colorado, 13456'
+      password: 'bahamamama',
+      address: '1234 Bro Lane',
+      city: 'Fern',
+      state: 'CO',
+      zip: 13456,
+      card: 474747474747
     }),
     User.create({
       // name: 'Seymour Cheeks',
       email: 'bartFan4ever@email.com',
-      password: 'squiggle'
-      // address: '742 Evergreen Terrace, Springfield, Oregan, 43522'
+      password: 'squiggle',
+      address: '742 Evergreen Terrace',
+      city: 'Springfield',
+      state: 'OR',
+      zip: 43522,
+      card: 121212121212
     })
   ])
 
