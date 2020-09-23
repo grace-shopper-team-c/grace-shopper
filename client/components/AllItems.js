@@ -28,8 +28,10 @@ class AllItems extends React.Component {
               <img src={item.image} />
             </div>
             <div>
-              <h3>{item.name}</h3>
-              <h3>{item.price}</h3>
+              <div className="main">
+                <h3>{item.name}</h3>
+                <h3>${item.price}</h3>
+              </div>
               <p>{item.description}</p>
             </div>
             <button
