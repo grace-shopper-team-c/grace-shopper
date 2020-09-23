@@ -42,15 +42,15 @@ class Cart extends React.Component {
         </div>
         <div>
           {this.props.cart.map(item => (
-            <Link to={`/${item.id}`} key={item.id}>
+            <div key={item.id} className="cart">
               <div>
                 <img src={item.image} />
               </div>
-              <div>
-                <h3>{item.name}</h3>
-                <h3>{item.price}</h3>
-              </div>
-              <div>
+
+              <h3>{item.name}</h3>
+              <h3>{item.price}</h3>
+
+              <div className="main">
                 <label htmlFor="qty">Quantity: </label>
                 <select
                   name="qty"
@@ -71,7 +71,7 @@ class Cart extends React.Component {
                 Remove
               </button>
               {/* add select tag how to increase/decrease purchase quantity*/}
-            </Link>
+            </div>
           ))}
         </div>
       </div>

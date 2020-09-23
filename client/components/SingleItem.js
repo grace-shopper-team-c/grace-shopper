@@ -31,7 +31,7 @@ class SingleItem extends React.Component {
     const item = this.props.item
     return (
       <div>
-        <div>
+        <div className="single_item">
           <div>
             <img src={item.image} />
           </div>
@@ -54,11 +54,10 @@ class SingleItem extends React.Component {
                 Add to Cart
               </button>
             </div>
+            <p>{item.description}</p>
           </div>
         </div>
-        <div>
-          <p>{item.description}</p>
-        </div>
+        <div />
       </div>
     )
   }
