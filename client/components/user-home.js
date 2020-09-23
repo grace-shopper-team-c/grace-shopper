@@ -9,38 +9,39 @@ export const UserHome = props => {
   const {email, address, city, state, zip} = props
   return (
     <div>
-      <h3>Welcome, {email}</h3>
-      <h4>Update address:</h4>
+      <h3 id="welcome">Welcome, {email}</h3>
       <div className="form-group">
-        <input
-          type="street"
-          className="form-control"
-          id="autocomplete"
-          placeholder={address || 'Street'}
-        />
+        <h4>Update address:</h4>
+        <div>
+          <input
+            type="street"
+            className="form-control"
+            id="inputStreet"
+            placeholder={address || 'Street'}
+          />
 
-        <input
-          type="city"
-          className="form-control"
-          id="inputCity"
-          placeholder={city || 'City'}
-        />
+          <input
+            type="city"
+            className="form-control"
+            id="inputCity"
+            placeholder={city || 'City'}
+          />
 
-        <input
-          type="state"
-          className="form-control"
-          id="inputState"
-          placeholder={state || 'State'}
-        />
+          <input
+            type="state"
+            className="form-control"
+            id="inputState"
+            placeholder={state || 'State'}
+          />
 
-        <input
-          type="zip"
-          className="form-control"
-          id="inputZip"
-          placeholder={zip || 'ZIP'}
-        />
-
-        <button type="Submit">Update Address</button>
+          <input
+            type="zip"
+            className="form-control"
+            id="inputZip"
+            placeholder={zip || 'ZIP'}
+          />
+        </div>
+        <button type="button">Update Address</button>
       </div>
     </div>
   )

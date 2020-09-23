@@ -25,12 +25,12 @@ class Cart extends React.Component {
   render() {
     console.log(this.props.cart)
     return this.props.cart.length === 0 ? (
-      <h2>
+      <h2 className="cart_total">
         Your cart is currently empty. Show it some love by adding some items.
       </h2>
     ) : (
       <div>
-        <div>
+        <div className="cart_total">
           <h3>TOTAL: </h3>
           <h3>
             ${' '}
