@@ -11,7 +11,7 @@ label {
 }
 
 nav a {
-  display: inline-block;
+  /* display: inline-block; */
   margin: 1em;
 }
 
@@ -19,3 +19,38 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+/* all product styling */
+.main {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.all_product_container {
+  color: black;
+  display: flex;
+  flex-flow: row wrap;
+  width: 80%;
+  margin: 2em;
+}
+
+aside {
+  width: 20em; /* Set the width of the sidebar */
+  background-color: gray;
+  padding: 5em;
+  color: white;
+}
+
+.product {
+  color: black;
+  width: 40%;
+  border: grey solid 2px;
+  padding: 1em;
+  margin: 1em;
+}
+
+.product img {
+  width: 70%;
+}
+
+/*navbar*/
