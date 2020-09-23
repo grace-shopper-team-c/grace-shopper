@@ -1,11 +1,15 @@
 const db = require('../db')
 const User = require('./user')
 const Item = require('./item')
+const Order = require('./order')
 
-const UserItem = db.define('user_item', {})
+const OrderItem = db.define('order_item', {})
 
-User.belongsToMany(Item, {through: UserItem})
-Item.belongsToMany(User, {through: UserItem})
+Order.belongsToMany(Item, {through: OrderItem})
+Item.belongsToMany(Order, {through: OrderItem})
+
+Order.belongsTo(User)
+User.hasMany(Order)
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -24,5 +28,6 @@ module.exports = {
   db,
   User,
   Item,
-  UserItem
+  Order,
+  OrderItem
 }

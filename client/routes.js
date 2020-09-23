@@ -29,6 +29,7 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/account" component={UserHome} />
+            <Route exact path="/:itemId" component={SingleItem} />
           </Switch>
         )}
         <Route exact path="/:itemId" component={SingleItem} />
