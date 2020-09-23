@@ -5,7 +5,7 @@ import Sidebar from './Sidebar'
 export default class HomePage extends React.Component {
   render() {
     return (
-      <div>
+      <div className="main">
         <Sidebar />
         <AllItems />
       </div>

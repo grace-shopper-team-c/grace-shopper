@@ -18,13 +18,13 @@ const StyledSideNav = styled.div`
 class Sidebar extends React.Component {
   render() {
     return (
-      <StyledSideNav>
+      <aside>
         <h2>All Products</h2>
         <h2>Skin Care</h2>
         <h2>Hair Care</h2>
         <h2>Cleaning Products</h2>
         <h2>Candles</h2>
-      </StyledSideNav>
+      </aside>
     )
   }
 }
