@@ -122,3 +122,26 @@ aside {
 .black {
   background-color: black;
 }
+
+/*singleProduct*/
+
+.single_item {
+  display: flex;
+  flex-flow: row nowrap;
+  font-size: 2em;
+}
+
+.single_item img {
+  width: 15em;
+
+  margin: 1em;
+  padding: 1em;
+}
+
+.single_item input {
+  width: 5em;
+}
+
+.single_item p {
+  padding-right: 1em;
+}
