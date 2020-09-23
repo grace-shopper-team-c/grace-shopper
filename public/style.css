@@ -150,7 +150,6 @@ aside {
   display: block;
   margin: 10% 20%;
   border: black solid 3px;
-
   padding: 1em;
   font-size: 1.5em;
 }
@@ -174,4 +173,26 @@ aside {
 
 .login_box button:hover {
   background-color: lightgreen;
+}
+
+/* cart styling */
+
+.cart {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  margin: 0em 2em;
+}
+
+.cart img {
+  max-width: 15em;
+  max-height: 8em;
+}
+
+.cart select {
+  height: 3em;
+}
+
+.cart button {
+  height: 3em;
 }
