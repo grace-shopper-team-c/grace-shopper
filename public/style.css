@@ -20,7 +20,7 @@ form div {
   display: inline-block;
 }
 
-/*login*/
+/*userpage styling*/
 input,
 label {
   margin: 5px 5px;
@@ -133,7 +133,6 @@ aside {
 
 .single_item img {
   width: 15em;
-
   margin: 1em;
   padding: 1em;
 }
@@ -144,4 +143,35 @@ aside {
 
 .single_item p {
   padding-right: 1em;
+}
+
+/*signup & login pages*/
+.login_box {
+  display: block;
+  margin: 10% 20%;
+  border: black solid 3px;
+
+  padding: 1em;
+  font-size: 1.5em;
+}
+
+.login_box button {
+  font-size: 0.9em;
+}
+
+.login_box input {
+  font-size: 0.8em;
+}
+
+.login_box a {
+  text-align: center;
+  color: black;
+}
+
+.login_box a:hover {
+  color: green;
+}
+
+.login_box button:hover {
+  background-color: lightgreen;
 }
