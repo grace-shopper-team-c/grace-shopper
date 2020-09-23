@@ -32,7 +32,6 @@ export const fetchSingleItem = itemId => {
 const singleItemReducer = (item = inititalItem, action) => {
   switch (action.type) {
     case SET_ITEM:
-      console.log(action.item)
       return action.item
     default:
       return item
