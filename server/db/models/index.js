@@ -2,8 +2,17 @@ const db = require('../db')
 const User = require('./user')
 const Item = require('./item')
 const Order = require('./order')
+const Sequelize = require('sequelize')
 
-const OrderItem = db.define('order_item', {})
+const OrderItem = db.define('order_item', {
+  quantity: {type: Sequelize.INTEGER, defaultValue: 1}
+})
+
+Order.hasMany(OrderItem)
+OrderItem.belongsTo(Order)
+
+OrderItem.belongsTo(Item)
+Item.hasMany(OrderItem)
 
 Order.belongsToMany(Item, {through: OrderItem})
 Item.belongsToMany(Order, {through: OrderItem})

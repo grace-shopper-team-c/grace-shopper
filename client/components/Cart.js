@@ -1,8 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-import {removeFromCart} from '../store/cart'
-import {addToCart} from '../store/cart'
+import {removeItemFromOrder, getCart, itemToAdd} from '../store/cart'
 
 class Cart extends React.Component {
   constructor() {
@@ -10,16 +8,21 @@ class Cart extends React.Component {
     this.handleAddToCart = this.handleAddToCart.bind(this)
     this.handleRemoval = this.handleRemoval.bind(this)
   }
+  componentDidMount() {
+    this.props.getCart(this.props.user.id)
+  }
 
-  /* async */ handleAddToCart(evt, item) {
-    evt.preventDefault()
-    console.log(evt, item)
-    //await this.props.addToCart(item, Number(this.state.qty))
+  async handleAddToCart(evt, item) {
+    await this.props.updateItem(
+      item,
+      this.props.user.id,
+      Number(evt.target.value)
+    )
   }
 
   async handleRemoval(evt, itemId) {
     evt.preventDefault()
-    await this.props.removeFromCart(itemId)
+    await this.props.removeFromCart(itemId, this.props.user.id)
   }
 
   render() {
@@ -34,30 +37,32 @@ class Cart extends React.Component {
           <h3>TOTAL: </h3>
           <h3>
             ${' '}
-            {this.props.cart.reduce((acc, item) => {
-              acc += Number(item.price)
-              return acc
-            }, 0)}
+            {this.props.cart
+              .reduce((acc, item) => {
+                acc += item.price * item.order_item.quantity / 100
+                return acc
+              }, 0)
+              .toFixed(2)}
           </h3>
         </div>
         <div>
-          {this.props.cart.map(item => (
+          {this.props.cart.map((item, idx) => (
             <div key={item.id} className="cart">
               <div>
                 <img src={item.image} />
               </div>
 
               <h3>{item.name}</h3>
-              <h3>{item.price}</h3>
+              <h3>{item.price / 100}</h3>
 
               <div className="main">
                 <label htmlFor="qty">Quantity: </label>
                 <select
                   name="qty"
-                  defaultValue={item.userQuantity}
-                  onSelect={evt => this.handleAddToCart(evt, item)}
+                  defaultValue={item.order_item.quantity}
+                  onChange={evt => this.handleAddToCart(evt, item)}
                 >
-                  {Array.from(Array(item.quantity)).map((ele, idx) => (
+                  {Array.from(Array(item.inventory)).map((ele, idx) => (
                     <option key={idx} value={idx + 1}>
                       {idx + 1}
                     </option>
@@ -70,7 +75,6 @@ class Cart extends React.Component {
               >
                 Remove
               </button>
-              {/* add select tag how to increase/decrease purchase quantity*/}
             </div>
           ))}
         </div>
@@ -81,14 +85,17 @@ class Cart extends React.Component {
 
 const mapState = state => {
   return {
-    cart: state.cart
+    cart: state.cart,
+    user: state.user
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    removeFromCart: itemId => dispatch(removeFromCart(itemId)),
-    addToCart: (item, qty) => dispatch(addToCart(item, qty))
+    removeFromCart: (itemId, userId) =>
+      dispatch(removeItemFromOrder(itemId, userId)),
+    getCart: userId => dispatch(getCart(userId)),
+    updateItem: (item, userId, qty) => dispatch(itemToAdd(item, userId, qty))
   }
 }
 

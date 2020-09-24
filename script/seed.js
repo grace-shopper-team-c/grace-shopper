@@ -11,8 +11,8 @@ async function seed() {
     Item.create({
       name: 'Face Wash',
       category: 'skin',
-      quantity: 6,
-      price: 30.99,
+      inventory: 6,
+      price: 3099,
       image:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR156OdyJqgpqr1MSJAZjEsDwQy6ipjz2LnCTUtpe9l4FLurMeiYCrWbJUIfc-BJXeITDCV9cc&usqp=CAc',
       description:
@@ -21,8 +21,8 @@ async function seed() {
     Item.create({
       name: 'Thor Hair',
       category: 'hair',
-      quantity: 7,
-      price: 36.99,
+      inventory: 7,
+      price: 3699,
       image:
         'https://external-preview.redd.it/fiuiCSjD_hrtGv92DLk1z2qRpweIWwazJehh4cYd68U.jpg?auto=webp&s=60f122a6fd4e75984d62cdfbc8011bcbfc086f30',
       description: 'For those luscious locks!'
@@ -30,8 +30,8 @@ async function seed() {
     Item.create({
       name: 'Everyday Cleaning Gloves',
       category: 'cleaning',
-      quantity: 3,
-      price: 9.99,
+      inventory: 3,
+      price: 999,
       image:
         'https://images-na.ssl-images-amazon.com/images/I/71ioBYTvABL._AC_SL1500_.jpg',
       description:
@@ -40,8 +40,8 @@ async function seed() {
     Item.create({
       name: 'Calming Nature',
       category: 'candle',
-      quantity: 5,
-      price: 24.99,
+      inventory: 5,
+      price: 2499,
       image:
         'https://images-na.ssl-images-amazon.com/images/I/71K530MlZwL._AC_SL1500_.jpg',
       description:

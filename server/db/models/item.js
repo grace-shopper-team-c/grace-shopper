@@ -10,12 +10,12 @@ const Item = db.define('item', {
   category: {
     type: Sequelize.ENUM('skin', 'hair', 'cleaning', 'candle')
   },
-  quantity: {
+  inventory: {
     type: Sequelize.INTEGER,
     min: 0
   },
   price: {
-    type: Sequelize.DECIMAL,
+    type: Sequelize.INTEGER,
     min: 0
   },
   image: Sequelize.STRING,

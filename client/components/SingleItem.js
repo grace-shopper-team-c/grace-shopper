@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchSingleItem} from '../store/singleItem'
-import {addToCart} from '../store/cart'
+import {itemToAdd} from '../store/cart'
 
 class SingleItem extends React.Component {
   constructor() {
@@ -24,7 +24,7 @@ class SingleItem extends React.Component {
 
   async handleAddToCart(evt, item) {
     evt.preventDefault()
-    await this.props.addToCart(item, Number(this.state.qty))
+    await this.props.addToCart(item, this.props.user.id, Number(this.state.qty))
   }
 
   render() {
@@ -37,14 +37,14 @@ class SingleItem extends React.Component {
           </div>
           <div>
             <h2>{item.name}</h2>
-            <h3>${item.price}</h3>
+            <h3>${item.price / 100}</h3>
             <div>
               <input
                 type="number"
                 name="qty"
                 value={this.state.qty}
                 min="1"
-                max={item.quantity}
+                max={item.inventory}
                 onChange={this.changeQuantity}
               />
               <button
@@ -65,14 +65,15 @@ class SingleItem extends React.Component {
 
 const mapState = state => {
   return {
-    item: state.singleItem
+    item: state.singleItem,
+    user: state.user
   }
 }
 
 const mapDispatch = dispatch => {
   return {
     getItem: itemId => dispatch(fetchSingleItem(itemId)),
-    addToCart: (item, qty) => dispatch(addToCart(item, qty))
+    addToCart: (item, userId, num) => dispatch(itemToAdd(item, userId, num))
   }
 }
 
