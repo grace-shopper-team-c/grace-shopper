@@ -6,19 +6,23 @@ import {fetchAllItems} from '../store/items'
 const Sidebar = props => {
   return (
     <aside>
-      <Link to="/" style={{color: 'white'}} onClick={() => props.getItems()}>
+      <Link to="/" className="filter" onClick={() => props.getItems()}>
         <h2>All Products</h2>
       </Link>
-      <Link to="/" onClick={() => props.getItems('skin')}>
+      <Link to="/" className="filter" onClick={() => props.getItems('skin')}>
         <h2>Skin Care</h2>
       </Link>
-      <Link to="/" onClick={() => props.getItems('hair')}>
+      <Link to="/" className="filter" onClick={() => props.getItems('hair')}>
         <h2>Hair Care</h2>
       </Link>
-      <Link to="/" onClick={() => props.getItems('cleaning')}>
+      <Link
+        to="/"
+        className="filter"
+        onClick={() => props.getItems('cleaning')}
+      >
         <h2>Cleaning Products</h2>
       </Link>
-      <Link to="/" onClick={() => props.getItems('candle')}>
+      <Link to="/" className="filter" onClick={() => props.getItems('candle')}>
         <h2>Candles</h2>
       </Link>
     </aside>

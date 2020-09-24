@@ -7,18 +7,22 @@ import {updateUser} from '../store/user'
  * COMPONENT
  */
 
-const UserHome = props => {
+export const UserHome = props => {
   const {email, address, city, state, zip, handleSubmit, id} = props
 
   return (
     <div>
       <h3 id="welcome">Welcome, {email}</h3>
-      <h2>Address:</h2>
-      <p>{address}</p>
-      <p>
-        {city}, {state} {zip}
-      </p>
       <div className="form-group">
+        <div className="main">
+          <h4>Address:</h4>
+          <div style={{paddingLeft: '1em'}}>
+            <p>{address}</p>
+            <p>
+              {city}, {state} {zip}
+            </p>
+          </div>
+        </div>
         <form onSubmit={evt => handleSubmit(evt, id)}>
           <h4>Update address:</h4>
           <div>

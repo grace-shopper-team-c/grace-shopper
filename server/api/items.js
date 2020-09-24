@@ -10,7 +10,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.get('/:category', async (req, res, next) => {
+router.get('/category/:category', async (req, res, next) => {
   try {
     const items = await Item.findAll({where: {category: req.params.category}})
     res.send(items)

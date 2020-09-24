@@ -16,7 +16,7 @@ export const fetchAllItems = type => {
     try {
       let response
       if (type) {
-        response = await axios.get(`/api/items/${type}`)
+        response = await axios.get(`/api/items/category/${type}`)
       } else {
         response = await axios.get('/api/items')
       }
