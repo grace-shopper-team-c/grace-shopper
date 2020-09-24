@@ -26,7 +26,7 @@ class Cart extends React.Component {
   }
 
   render() {
-    console.log(this.props.cart)
+    console.log(this)
     return this.props.cart.length === 0 ? (
       <h2>
         Your cart is currently empty. Show it some love by adding some items.

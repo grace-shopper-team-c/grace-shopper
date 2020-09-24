@@ -1,23 +1,21 @@
 const router = require('express').Router()
 const {Order, OrderItem} = require('../db/models')
 
-// console.log(Object.keys(order[0].__proto__))
-// router.get('/' async (req, res, next) => {
-//   try {
-//     const allOrders = await Order.findAll({
-//       where: {}
-//     })
-//   } catch (error) {
-//     next(error)
-//   }
-// })
+const isUser = (req, res, next) => {
+  if (req.user && req.user.id === Number(req.params.userId)) {
+    next()
+  } else {
+    const err = new Error('Wrong Account')
+    err.status = 401
+    next(err)
+  }
+}
 
 //GET or create orders specific to user account
-router.get('/:userId', async (req, res, next) => {
+router.get('/:userId', isUser, async (req, res, next) => {
   try {
-    //can probably get rid of the :userId
     const [order, wasCreated] = await Order.findOrCreate({
-      where: {userId: req.session.passport.user, fulfilled: false},
+      where: {userId: req.user.id, fulfilled: false},
       include: [OrderItem]
     })
     if (!wasCreated) {
