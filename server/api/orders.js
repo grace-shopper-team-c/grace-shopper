@@ -2,7 +2,7 @@ const router = require('express').Router()
 const {Order, OrderItem} = require('../db/models')
 
 const isUser = (req, res, next) => {
-  if (req.user && req.user.id === Number(req.params.userId)) {
+  if (req.user /* && req.user.id === Number(req.params.userId) */) {
     next()
   } else {
     const err = new Error('Wrong Account')
