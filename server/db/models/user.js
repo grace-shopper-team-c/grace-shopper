@@ -19,7 +19,10 @@ const User = db.define('user', {
   address: Sequelize.STRING,
   city: Sequelize.STRING,
   state: Sequelize.STRING,
-  zip: Sequelize.INTEGER,
+  zip: {
+    type: Sequelize.INTEGER,
+    max: 99999
+  },
   card: Sequelize.BIGINT,
   salt: {
     type: Sequelize.STRING,
@@ -31,6 +34,10 @@ const User = db.define('user', {
   },
   googleId: {
     type: Sequelize.STRING
+  },
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
 })
 

@@ -1,47 +1,61 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import PropTypes from 'prop-types'
+import {updateUser} from '../store/user'
 
 /**
  * COMPONENT
  */
-export const UserHome = props => {
-  const {email, address, city, state, zip} = props
+
+const UserHome = props => {
+  const {email, address, city, state, zip, handleSubmit, id} = props
+
   return (
     <div>
       <h3 id="welcome">Welcome, {email}</h3>
+      <h2>Address:</h2>
+      <p>{address}</p>
+      <p>
+        {city}, {state} {zip}
+      </p>
       <div className="form-group">
-        <h4>Update address:</h4>
-        <div>
-          <input
-            type="street"
-            className="form-control"
-            id="inputStreet"
-            placeholder={address || 'Street'}
-          />
+        <form onSubmit={evt => handleSubmit(evt, id)}>
+          <h4>Update address:</h4>
+          <div>
+            <input
+              name="address"
+              type="text"
+              className="form-control"
+              id="inputStreet"
+              placeholder={address || 'Street'}
+            />
 
-          <input
-            type="city"
-            className="form-control"
-            id="inputCity"
-            placeholder={city || 'City'}
-          />
+            <input
+              name="city"
+              type="text"
+              className="form-control"
+              id="inputCity"
+              placeholder={city || 'City'}
+            />
 
-          <input
-            type="state"
-            className="form-control"
-            id="inputState"
-            placeholder={state || 'State'}
-          />
+            <input
+              name="state"
+              type="text"
+              className="form-control"
+              id="inputState"
+              placeholder={state || 'State'}
+            />
 
-          <input
-            type="zip"
-            className="form-control"
-            id="inputZip"
-            placeholder={zip || 'ZIP'}
-          />
-        </div>
-        <button type="button">Update Address</button>
+            <input
+              name="zip"
+              type="text"
+              className="form-control"
+              id="inputZip"
+              placeholder={zip || 'ZIP'}
+            />
+          </div>
+          <button type="submit">Update Address</button>
+        </form>
       </div>
     </div>
   )
@@ -52,6 +66,7 @@ export const UserHome = props => {
  */
 const mapState = state => {
   return {
+    id: state.user.id,
     email: state.user.email,
     address: state.user.address,
     city: state.user.city,
@@ -60,11 +75,25 @@ const mapState = state => {
   }
 }
 
-export default connect(mapState)(UserHome)
+const mapDispatch = dispatch => {
+  return {
+    handleSubmit(evt, id) {
+      evt.preventDefault()
+      const address = evt.target.address.value
+      const city = evt.target.city.value
+      const state = evt.target.state.value
+      const zip = evt.target.zip.value
+      dispatch(updateUser(id, {address, city, state, zip}))
+    }
+  }
+}
+
+export default connect(mapState, mapDispatch)(UserHome)
 
 /**
  * PROP TYPES
  */
+
 UserHome.propTypes = {
   email: PropTypes.string
 }
