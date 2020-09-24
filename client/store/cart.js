@@ -53,10 +53,10 @@ export const itemToAdd = (item, userId, qty) => {
       }
       //does not yet account for more than 1 of userQuantity
       const {cart, user} = store.getState()
+      const orderId = user.orderId
       const filteredCart = cart.filter(product => product.id === item.id)
       if (filteredCart.length === 1) {
         //QUANTITY
-        const orderId = user.orderId
         const {data} = await axios.post(`/api/orders/update/${userId}`, {
           item,
           orderId,
@@ -64,7 +64,11 @@ export const itemToAdd = (item, userId, qty) => {
         })
         dispatch(updateCart(data))
       } else {
-        const {data} = await axios.post(`/api/orders/${userId}`, item)
+        const {data} = await axios.post(`/api/orders/${userId}`, {
+          item,
+          orderId
+        })
+        item.order_item = data
         dispatch(addToCart(item))
       }
     } catch (error) {

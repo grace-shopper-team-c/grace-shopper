@@ -53,11 +53,11 @@ router.post('/update/:userId', async (req, res, next) => {
 //Add items to cart/Update quantity
 router.post('/:userId', async (req, res, next) => {
   try {
-    const order = await Order.findOne({
-      where: {userId: req.params.userId, fulfilled: false}
+    const item = await OrderItem.create({
+      orderId: req.body.orderId,
+      itemId: req.body.item.id
     })
-    await order.addItems(req.body.id)
-    res.send(order)
+    res.send(item)
   } catch (error) {
     next(error)
   }
