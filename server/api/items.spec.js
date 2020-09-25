@@ -18,7 +18,7 @@ describe('Item routes', () => {
       return Item.create({
         name: 'OroHEY Hair',
         category: 'hair',
-        price: '12.99',
+        price: 1299,
         image:
           'https://i.kym-cdn.com/photos/images/facebook/000/929/796/37f.png',
         description: 'This soap will make you happy'

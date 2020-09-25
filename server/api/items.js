@@ -13,6 +13,11 @@ router.get('/', async (req, res, next) => {
 router.get('/category/:category', async (req, res, next) => {
   try {
     const items = await Item.findAll({where: {category: req.params.category}})
+    if (!items.length) {
+      const err = new Error('No items were found')
+      err.status = 404
+      next(err)
+    }
     res.send(items)
   } catch (error) {
     next(error)
@@ -21,12 +26,14 @@ router.get('/category/:category', async (req, res, next) => {
 
 router.get('/:itemId', async (req, res, next) => {
   try {
-    const item = await Item.findOne({
-      where: {
-        id: req.params.itemId
-      }
-    })
-    res.send(item)
+    const item = await Item.findByPk(req.params.itemId)
+    if (item) {
+      res.send(item)
+    } else {
+      const err = new Error('Item not found')
+      err.status = 404
+      next(err)
+    }
   } catch (error) {
     next(error)
   }

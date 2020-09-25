@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const {User} = require('../db/models')
+const {isAdminMiddleWare} = require('./customMiddleware')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -34,5 +35,20 @@ router.put('/:userId', async (req, res, next) => {
     }
   } catch (err) {
     next(err)
+  }
+})
+
+router.get('/all', async (req, res, next) => {
+  try {
+    let allUsers = await User.findAll({attributes: ['email', 'city', 'state']})
+    if (!allUsers.length) {
+      let error = new Error('No users found')
+      error.status = 404
+      next(error)
+    } else {
+      res.send(allUsers)
+    }
+  } catch (error) {
+    next(error)
   }
 })
