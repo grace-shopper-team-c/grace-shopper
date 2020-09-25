@@ -2,13 +2,15 @@ import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {updateUser} from '../store/user'
+import {AdminUser} from '.'
+import {Link} from 'react-router-dom'
 
 /**
  * COMPONENT
  */
 
 export const UserHome = props => {
-  const {email, address, city, state, zip, handleSubmit, id} = props
+  const {email, address, city, state, zip, handleSubmit, id, isAdmin} = props
 
   return (
     <div>
@@ -60,6 +62,13 @@ export const UserHome = props => {
           </div>
           <button type="submit">Update Address</button>
         </form>
+        {isAdmin ? (
+          <div>
+            <Link to="/admin/users">View All Users</Link>
+          </div>
+        ) : (
+          ''
+        )}
       </div>
     </div>
   )
@@ -75,7 +84,8 @@ const mapState = state => {
     address: state.user.address,
     city: state.user.city,
     state: state.user.state,
-    zip: state.user.zip
+    zip: state.user.zip,
+    isAdmin: state.user.isAdmin
   }
 }
 

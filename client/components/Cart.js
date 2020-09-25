@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {removeItemFromOrder, getCart, itemToAdd} from '../store/cart'
-
+import {Link} from 'react-router-dom'
 
 class Cart extends React.Component {
   constructor() {
@@ -12,7 +12,6 @@ class Cart extends React.Component {
   componentDidMount() {
     this.props.getCart(this.props.user.id)
   }
-
 
   async handleAddToCart(evt, item) {
     await this.props.updateItem(
