@@ -30,14 +30,21 @@ export const getCart = userId => {
   return async dispatch => {
     try {
       if (userId === undefined) {
+        // localStorage.setItem('guest', JSON.stringify({guest: 'gaston'}))
+        if (localStorage.getItem('guest')) {
+          // console.log('BE OUR GUEST')
+        } else {
+          // console.log('NO GUEST TO SERVE')
+        }
         //localStore
         //dispatch(addToCart(item, userQuantity))
+      } else {
+        const {data} = await axios.get(`/api/orders/${userId}`)
+        const items = data.items
+        const orderId = data.order.id
+        if (items) dispatch(gotCart(items))
+        dispatch(addOrderId(orderId))
       }
-      const {data} = await axios.get(`/api/orders/${userId}`)
-      const items = data.items
-      const orderId = data.order.id
-      if (items) dispatch(gotCart(items))
-      dispatch(addOrderId(orderId))
     } catch (error) {
       console.error(error.message)
     }
