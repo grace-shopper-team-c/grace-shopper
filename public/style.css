@@ -97,6 +97,14 @@ aside {
   color: white;
 }
 
+.filter {
+  color: white;
+}
+
+.filter:hover {
+  color: black;
+}
+
 .product {
   color: black;
   width: 40%;
