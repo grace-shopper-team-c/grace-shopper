@@ -11,10 +11,15 @@ const getAllItems = items => {
   }
 }
 
-export const fetchAllItems = () => {
+export const fetchAllItems = type => {
   return async dispatch => {
     try {
-      const response = await axios.get('/api/items')
+      let response
+      if (type) {
+        response = await axios.get(`/api/items/category/${type}`)
+      } else {
+        response = await axios.get('/api/items')
+      }
       const items = response.data
       dispatch(getAllItems(items))
     } catch (error) {

@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {removeItemFromOrder, getCart, itemToAdd} from '../store/cart'
 
+
 class Cart extends React.Component {
   constructor() {
     super()
@@ -11,6 +12,7 @@ class Cart extends React.Component {
   componentDidMount() {
     this.props.getCart(this.props.user.id)
   }
+
 
   async handleAddToCart(evt, item) {
     await this.props.updateItem(
@@ -26,14 +28,13 @@ class Cart extends React.Component {
   }
 
   render() {
-    // console.log(window.localStorage)
     return this.props.cart.length === 0 ? (
-      <h2>
+      <h2 className="cart_total">
         Your cart is currently empty. Show it some love by adding some items.
       </h2>
     ) : (
       <div>
-        <div>
+        <div className="cart_total">
           <h3>TOTAL: </h3>
           <h3>
             ${' '}
@@ -77,6 +78,9 @@ class Cart extends React.Component {
               </button>
             </div>
           ))}
+          <Link to="/checkout">
+            <button type="submit">Checkout</button>
+          </Link>
         </div>
       </div>
     )

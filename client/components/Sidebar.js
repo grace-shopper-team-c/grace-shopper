@@ -1,32 +1,38 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
+import {fetchAllItems} from '../store/items'
 
-import styled from 'styled-components'
-
-/* This defines the actual bar going down the screen */
-const StyledSideNav = styled.div`
-  height: 100%;
-  width: 100px; /* Set the width of the sidebar */
-  z-index: 1; /* Stay on top of everything */
-  top: 3.4em; /* Stay at the top */
-  background-color: gray;
-  overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 10px;
-  color: white;
-`
-
-class Sidebar extends React.Component {
-  render() {
-    return (
-      <aside>
+const Sidebar = props => {
+  return (
+    <aside>
+      <Link to="/" className="filter" onClick={() => props.getItems()}>
         <h2>All Products</h2>
+      </Link>
+      <Link to="/" className="filter" onClick={() => props.getItems('skin')}>
         <h2>Skin Care</h2>
+      </Link>
+      <Link to="/" className="filter" onClick={() => props.getItems('hair')}>
         <h2>Hair Care</h2>
+      </Link>
+      <Link
+        to="/"
+        className="filter"
+        onClick={() => props.getItems('cleaning')}
+      >
         <h2>Cleaning Products</h2>
+      </Link>
+      <Link to="/" className="filter" onClick={() => props.getItems('candle')}>
         <h2>Candles</h2>
-      </aside>
-    )
+      </Link>
+    </aside>
+  )
+}
+
+const mapDispatch = dispatch => {
+  return {
+    getItems: type => dispatch(fetchAllItems(type))
   }
 }
 
-export default Sidebar
+export default connect(null, mapDispatch)(Sidebar)

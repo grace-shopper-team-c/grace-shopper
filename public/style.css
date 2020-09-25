@@ -21,22 +21,36 @@ form div {
 }
 
 /*userpage styling*/
+#welcome {
+  font-size: 2em;
+  text-align: center;
+}
+
 input,
 label {
-  margin: 5px 5px;
+  margin: 5px;
+  font-size: 0.7em;
 }
 
 .form-group {
   margin: 30px auto;
-  width: 450px;
+  width: 50%;
+  font-size: 1.5em;
 }
 
 .form-control {
   float: left;
 }
+.form-group button {
+  font-size: 0.75em;
+  margin: 0em 35%;
+}
+.form-group button:hover {
+  background-color: lightgreen;
+}
 
 #inputStreet {
-  width: 100%;
+  width: 85%;
 }
 
 #inputCity {
@@ -44,11 +58,11 @@ label {
 }
 
 #inputState {
-  width: 15%;
+  width: 10%;
 }
 
 #inputZip {
-  width: 28%;
+  width: 20%;
 }
 
 #inputCounty {
@@ -81,6 +95,14 @@ aside {
   background-color: gray;
   padding: 1em;
   color: white;
+}
+
+.filter {
+  color: white;
+}
+
+.filter:hover {
+  color: black;
 }
 
 .product {
@@ -146,6 +168,15 @@ aside {
 }
 
 /*signup & login pages*/
+.cart_total {
+  display: flex;
+  justify-content: center;
+}
+
+.cart_total h3 {
+  margin: 1em 2em;
+  font-size: 1.5em;
+}
 .login_box {
   display: block;
   margin: 10% 20%;

@@ -61,6 +61,7 @@ router.post('/:userId', async (req, res, next) => {
   }
 })
 
+
 //remote item from cart
 router.put('/:userId', async (req, res, next) => {
   try {
@@ -70,6 +71,7 @@ router.put('/:userId', async (req, res, next) => {
     await order
       .removeItem(req.body.itemId)
       .then(response => res.status(200).end())
+
   } catch (error) {
     next(error)
   }
