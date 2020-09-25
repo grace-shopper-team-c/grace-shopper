@@ -2,7 +2,7 @@ import React from 'react'
 import {fetchAllItems} from '../store/items'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {addToCart} from '../store/cart'
+import {itemToAdd, getCart} from '../store/cart'
 
 class AllItems extends React.Component {
   constructor() {
@@ -11,12 +11,15 @@ class AllItems extends React.Component {
   }
 
   componentDidMount() {
+    if (this.props.user.id) {
+      this.props.getCart(this.props.user.id)
+    }
     this.props.getItems()
   }
 
   async handleAddToCart(evt, item) {
     evt.preventDefault()
-    await this.props.addToCart(item)
+    await this.props.addToCart(item, this.props.user.id)
   }
 
   render() {
@@ -30,7 +33,7 @@ class AllItems extends React.Component {
             <div>
               <div className="main">
                 <h3>{item.name}</h3>
-                <h3>${item.price}</h3>
+                <h3>${item.price / 100}</h3>
               </div>
               <p>{item.description}</p>
             </div>
@@ -49,14 +52,16 @@ class AllItems extends React.Component {
 
 const mapState = state => {
   return {
-    items: state.items
+    items: state.items,
+    user: state.user
   }
 }
 
 const mapDispatch = dispatch => {
   return {
     getItems: () => dispatch(fetchAllItems()),
-    addToCart: item => dispatch(addToCart(item))
+    addToCart: (item, userId) => dispatch(itemToAdd(item, userId)),
+    getCart: userId => dispatch(getCart(userId))
   }
 }
 
