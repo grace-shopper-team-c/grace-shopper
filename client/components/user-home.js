@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {updateUser} from '../store/user'
-import {Link} from 'react-router-dom'
+import AdminSidebar from './AdminSidebar'
 
 /**
  * COMPONENT
@@ -13,21 +13,7 @@ export const UserHome = props => {
 
   return (
     <div className="main">
-      {isAdmin ? (
-        <aside>
-          <Link className="filter" to="/admin/users">
-            <h2>View All Users</h2>
-          </Link>
-          <Link className="filter" to="/admin/items">
-            <h2>View All Items</h2>
-          </Link>
-          <Link className="filter" to="/admin/newItem">
-            <h2>Add New Item</h2>
-          </Link>
-        </aside>
-      ) : (
-        ''
-      )}
+      {isAdmin ? <AdminSidebar /> : ''}
       <div>
         <h3 className="welcome">Welcome, {email}</h3>
         <div className="form-group">

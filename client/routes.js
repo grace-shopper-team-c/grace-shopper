@@ -14,6 +14,7 @@ import Checkout from './components/Checkout'
 import Cart from './components/Cart'
 import HomePage from './components/HomePage'
 import {me} from './store'
+import AdminNewItem from './components/AdminNewItem'
 
 /**
  * COMPONENT
@@ -41,6 +42,7 @@ class Routes extends Component {
             <Route exact path="/item/:itemId" component={SingleItem} />
             {isAdmin && <Route path="/admin/users" component={AdminUser} />}
             {isAdmin && <Route path="/admin/items" component={AdminItems} />}
+            {isAdmin && <Route path="/admin/update" component={AdminNewItem} />}
           </Switch>
         )}
         <Route exact path="/item/:itemId" component={SingleItem} />

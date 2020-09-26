@@ -42,12 +42,28 @@ router.get('/:itemId', async (req, res, next) => {
 
 router.delete('/:itemId', isAdminMiddleware, async (req, res, next) => {
   try {
-    console.log(req.params.itemId)
     console.log(
       'I am getting a "null value in column "itemId" violates not-null constraint" error'
     )
     // await Item.destroy({where: {id: req.params.itemId}})
     res.sendStatus(204)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.post('/', isAdminMiddleware, async (req, res, next) => {
+  try {
+    const newItem = await Item.create({
+      name: req.body.name,
+      category: req.body.category,
+      inventory: req.body.inventory,
+      price: req.body.price,
+      image: req.body.image,
+      description: req.body.description
+    })
+    console.log(newItem)
+    res.send(newItem)
   } catch (error) {
     next(error)
   }

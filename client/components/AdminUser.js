@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchAllUsers} from '../store/admin'
-import {Link} from 'react-router-dom'
+import AdminSidebar from './AdminSidebar'
 
 class AdminUser extends React.Component {
   componentDidMount() {
@@ -10,14 +10,7 @@ class AdminUser extends React.Component {
   render() {
     return (
       <div className="main">
-        <aside>
-          <Link className="filter" to="/admin/items">
-            <h2>View All Items</h2>
-          </Link>
-          <Link className="filter" to="/admin/newItem">
-            <h2>Add New Item</h2>
-          </Link>
-        </aside>
+        <AdminSidebar />
         <div>
           <h3 className="welcome">Admin Page - All Users</h3>
           <div className="all_product_container">
