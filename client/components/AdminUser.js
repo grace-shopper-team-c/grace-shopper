@@ -14,10 +14,13 @@ class AdminUser extends React.Component {
           <Link className="filter" to="/admin/items">
             <h2>View All Items</h2>
           </Link>
+          <Link className="filter" to="/admin/newItem">
+            <h2>Add New Item</h2>
+          </Link>
         </aside>
         <div>
           <h3 className="welcome">Admin Page - All Users</h3>
-          <div className="main">
+          <div className="all_product_container">
             {this.props.allUsers ? (
               this.props.allUsers.map(user => {
                 return (
@@ -41,7 +44,7 @@ class AdminUser extends React.Component {
 
 const mapState = state => {
   return {
-    allUsers: state.admin.allUsers
+    allUsers: state.admin
   }
 }
 

@@ -1,12 +1,19 @@
 import React from 'react'
-import {fetchAllItems} from '../store/items'
+import {fetchAllItems, deleteItem} from '../store/items'
 import {connect} from 'react-redux'
-import Sidebar from './Sidebar'
 import {Link} from 'react-router-dom'
 
 class AdminItems extends React.Component {
+  constructor() {
+    super()
+    this.updateItem = this.updateItem.bind(this)
+  }
   componentDidMount() {
     this.props.getItems()
+  }
+
+  updateItem() {
+    console.log('update', event.target)
   }
 
   render() {
@@ -15,6 +22,9 @@ class AdminItems extends React.Component {
         <aside>
           <Link className="filter" to="/admin/users">
             <h2>View All Users</h2>
+          </Link>
+          <Link className="filter" to="/admin/newItem">
+            <h2>Add New Item</h2>
           </Link>
           <Link
             to="/admin/items"
@@ -75,7 +85,10 @@ class AdminItems extends React.Component {
                     )}
                   </div>
                   <div className="main">
-                    <button type="button" onClick={() => this.removeItem()}>
+                    <button
+                      type="button"
+                      onClick={() => this.props.removeItem(item)}
+                    >
                       Remove
                     </button>
                     <button type="button" onClick={() => this.updateItem()}>
@@ -101,7 +114,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    getItems: type => dispatch(fetchAllItems(type))
+    getItems: type => dispatch(fetchAllItems(type)),
+    removeItem: item => dispatch(deleteItem(item))
   }
 }
 

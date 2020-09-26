@@ -1,8 +1,6 @@
 import axios from 'axios'
 
-const initialAdmin = {
-  allUsers: []
-}
+const initialAdmin = []
 
 const GET_ALL_USERS = 'GET_ALL_USERS'
 
@@ -28,7 +26,7 @@ export const fetchAllUsers = () => {
 function adminReducer(admin = initialAdmin, action) {
   switch (action.type) {
     case GET_ALL_USERS:
-      return {...admin, allUsers: action.allUsers}
+      return action.allUsers
     default:
       return admin
   }

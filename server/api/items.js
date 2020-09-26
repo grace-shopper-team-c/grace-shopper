@@ -1,5 +1,6 @@
 const router = require('express').Router()
-const {Item} = require('../db/models')
+const {Item, OrderItem} = require('../db/models')
+const {isAdminMiddleware} = require('./customMiddleware')
 
 router.get('/', async (req, res, next) => {
   try {
@@ -34,6 +35,19 @@ router.get('/:itemId', async (req, res, next) => {
       err.status = 404
       next(err)
     }
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.delete('/:itemId', isAdminMiddleware, async (req, res, next) => {
+  try {
+    console.log(req.params.itemId)
+    console.log(
+      'I am getting a "null value in column "itemId" violates not-null constraint" error'
+    )
+    // await Item.destroy({where: {id: req.params.itemId}})
+    res.sendStatus(204)
   } catch (error) {
     next(error)
   }

@@ -21,6 +21,9 @@ export const UserHome = props => {
           <Link className="filter" to="/admin/items">
             <h2>View All Items</h2>
           </Link>
+          <Link className="filter" to="/admin/newItem">
+            <h2>Add New Item</h2>
+          </Link>
         </aside>
       ) : (
         ''
