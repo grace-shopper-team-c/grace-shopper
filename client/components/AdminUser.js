@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchAllUsers} from '../store/admin'
+import {Link} from 'react-router-dom'
 
 class AdminUser extends React.Component {
   componentDidMount() {
@@ -8,23 +9,30 @@ class AdminUser extends React.Component {
   }
   render() {
     return (
-      <div>
-        <h1>Admin Page - All Users</h1>
+      <div className="main">
+        <aside>
+          <Link className="filter" to="/admin/items">
+            <h2>View All Items</h2>
+          </Link>
+        </aside>
         <div>
-          {this.props.allUsers ? (
-            this.props.allUsers.map(user => {
-              return (
-                <div key={user.email}>
-                  <p>{user.email}</p>
-                  <p>
-                    {user.city}, {user.state}
-                  </p>
-                </div>
-              )
-            })
-          ) : (
-            <div>No users found</div>
-          )}
+          <h3 className="welcome">Admin Page - All Users</h3>
+          <div className="main">
+            {this.props.allUsers ? (
+              this.props.allUsers.map(user => {
+                return (
+                  <div key={user.email}>
+                    <p>{user.email}</p>
+                    <p>
+                      {user.city}, {user.state}
+                    </p>
+                  </div>
+                )
+              })
+            ) : (
+              <div>No users found</div>
+            )}
+          </div>
         </div>
       </div>
     )
