@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Item, OrderItem} = require('../db/models')
+const {Item} = require('../db/models')
 const {isAdminMiddleware} = require('./customMiddleware')
 
 router.get('/', async (req, res, next) => {
@@ -59,8 +59,26 @@ router.post('/', isAdminMiddleware, async (req, res, next) => {
       image: req.body.image,
       description: req.body.description
     })
-    console.log(newItem)
     res.send(newItem)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put('/:itemId', isAdminMiddleware, async (req, res, next) => {
+  try {
+    const updatedItem = await Item.update(
+      {
+        name: req.body.name,
+        category: req.body.category,
+        inventory: req.body.inventory,
+        price: req.body.price,
+        image: req.body.image,
+        description: req.body.description
+      },
+      {where: {id: req.params.itemId}}
+    )
+    res.send(updatedItem)
   } catch (error) {
     next(error)
   }

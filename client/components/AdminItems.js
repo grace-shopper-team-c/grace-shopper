@@ -14,9 +14,7 @@ class AdminItems extends React.Component {
   }
 
   updateItem(itemId) {
-    console.log('update', event.target)
     this.props.getItem(itemId)
-    console.log(this.props.history)
     this.props.history.push('/admin/update')
   }
 

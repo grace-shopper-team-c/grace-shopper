@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {createItem} from '../store/items'
+import {createOrUpdateItem} from '../store/items'
 import AdminSidebar from './AdminSidebar'
 import {updateItemInfo} from '../store/singleItem'
 
@@ -11,7 +11,6 @@ class NewItem extends React.Component {
   }
 
   handleChange() {
-    console.log(event.target)
     if (event.target.name === 'price') event.target.value *= 100
     this.props.change({[event.target.name]: event.target.value})
   }
@@ -78,21 +77,12 @@ class NewItem extends React.Component {
             onChange={() => this.handleChange()}
             name="description"
           />
-          {!this.props.item.id ? (
-            <button
-              type="button"
-              onClick={() => this.props.addItem(this.props.item)}
-            >
-              Add Item
-            </button>
-          ) : (
-            <button
-              type="button"
-              onClick={() => this.props.updateItem(this.props.item)}
-            >
-              Update Item
-            </button>
-          )}
+          <button
+            type="button"
+            onClick={() => this.props.handleSubmit(this.props.item)}
+          >
+            {!this.props.item.id ? 'Add Item' : 'Update Item'}
+          </button>
         </div>
       </div>
     )
@@ -105,10 +95,9 @@ const mapState = state => {
   }
 }
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch, ownProps) => {
   return {
-    addItem: item => dispatch(createItem(item)),
-    updateItem: item => dispatch(updateItem(item)),
+    handleSubmit: item => dispatch(createOrUpdateItem(item, ownProps.history)),
     change: change => dispatch(updateItemInfo(change))
   }
 }

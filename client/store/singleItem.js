@@ -13,7 +13,7 @@ const inititalItem = {
 const SET_ITEM = 'SET_ITEM'
 const UPDATE_ITEM_INFO = 'UPDATE_ITEM_INFO'
 
-const setItem = item => {
+export const setItem = item => {
   return {
     type: SET_ITEM,
     item: item

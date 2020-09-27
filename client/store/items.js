@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {setItem} from './singleItem'
 
 const initialItems = []
 
@@ -55,12 +56,19 @@ export const deleteItem = item => {
   }
 }
 
-export const createItem = item => {
+export const createOrUpdateItem = (item, history) => {
   return async dispatch => {
     try {
-      const response = await axios.post('/api/items', item)
-      const newItem = response.data
-      dispatch(addItem(newItem))
+      let newItem
+      if (item.id) {
+        newItem = await axios.put(`/api/items/${item.id}`, item)
+      } else {
+        const response = await axios.post('/api/items', item)
+        newItem = response.data
+        dispatch(addItem(newItem))
+      }
+      dispatch(setItem(newItem))
+      history.push('/admin/items')
     } catch (error) {
       console.error(error.message)
     }
