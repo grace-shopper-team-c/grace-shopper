@@ -29,9 +29,9 @@ const updateCart = item => ({type: UPDATE, item})
 export const getCart = userId => {
   return async dispatch => {
     try {
+      const guest = JSON.parse(localStorage.getItem('guest'))
       if (userId === undefined) {
         if (localStorage.getItem('guest')) {
-          const guest = JSON.parse(localStorage.getItem('guest'))
           dispatch(gotCart(guest.cart))
         } else {
           localStorage.setItem(
@@ -43,6 +43,19 @@ export const getCart = userId => {
         const {data} = await axios.get(`/api/orders/${userId}`)
         const items = data.items
         const orderId = data.order.id
+        if (guest.cart.length > 0) {
+          guest.cart.forEach(async product => {
+            await axios.post(`/api/orders/addGuestCart/${userId}`, {
+              product,
+              orderId
+            })
+            items.push(product)
+            localStorage.setItem(
+              'guest',
+              JSON.stringify({name: 'guest', cart: []})
+            )
+          })
+        }
         if (items) dispatch(gotCart(items))
         dispatch(addOrderId(orderId))
       }
@@ -56,7 +69,6 @@ export const itemToAdd = (item, userId, qty) => {
   return async dispatch => {
     try {
       if (userId === undefined) {
-        //guest
         const guest = JSON.parse(localStorage.getItem('guest'))
         const filteredCart = guest.cart.filter(
           product => product.id === item.id
@@ -65,8 +77,6 @@ export const itemToAdd = (item, userId, qty) => {
         let newQty = qty ? qty : 1
         if (filteredCart.length === 1) {
           if (qty === undefined) {
-            //update qty of product in cart with +1 of what is already in cart if no qty
-            //DOES UPDATE, BUT NEED TO REFRESH TO SEE UPDATE..., or leave cart page and come back
             guest.cart.map(product => {
               if (product.id === item.id) {
                 product.order_item.quantity =
@@ -83,8 +93,6 @@ export const itemToAdd = (item, userId, qty) => {
               })
             )
           } else {
-            //update qty of product already in cart to qty passed in
-            //DOES UPDATE, BUT NEED TO REFRESH TO SEE UPDATE..., or leave cart page and come back
             guest.cart.map(product => {
               if (product.id === filteredCart[0].id) {
                 product.order_item.quantity = newQty
@@ -101,15 +109,12 @@ export const itemToAdd = (item, userId, qty) => {
             )
           }
         } else {
-          //adding new product with no qty passed in, default to 1
-          //adding new product with qty passed in
           item.order_item = {quantity: newQty}
           guest.cart.push(item)
           localStorage.setItem('guest', JSON.stringify(guest))
           dispatch(addToCart(item))
         }
       } else {
-        //logged in user
         const {cart, user} = store.getState()
         const orderId = user.orderId
         const filteredCart = cart.filter(product => product.id === item.id)

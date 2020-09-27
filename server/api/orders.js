@@ -29,6 +29,19 @@ router.get('/:userId', isUser, async (req, res, next) => {
   }
 })
 
+router.post('/addGuestCart/:userId', async (req, res, next) => {
+  try {
+    await OrderItem.create({
+      orderId: req.body.orderId,
+      itemId: req.body.product.id,
+      quantity: req.body.product.order_item.quantity
+    })
+    res.status(200).end()
+  } catch (error) {
+    next(error)
+  }
+})
+
 router.post('/update/:userId', async (req, res, next) => {
   try {
     let newQuantity
