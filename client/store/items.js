@@ -60,7 +60,6 @@ export const createItem = item => {
     try {
       const response = await axios.post('/api/items', item)
       const newItem = response.data
-      console.log(newItem)
       dispatch(addItem(newItem))
     } catch (error) {
       console.error(error.message)

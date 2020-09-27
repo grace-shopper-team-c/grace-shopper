@@ -2,6 +2,7 @@ import React from 'react'
 import {fetchAllItems, deleteItem} from '../store/items'
 import {connect} from 'react-redux'
 import AdminSidebar from './AdminSidebar'
+import {fetchSingleItem} from '../store/singleItem'
 
 class AdminItems extends React.Component {
   constructor() {
@@ -12,8 +13,11 @@ class AdminItems extends React.Component {
     this.props.getItems()
   }
 
-  updateItem() {
+  updateItem(itemId) {
     console.log('update', event.target)
+    this.props.getItem(itemId)
+    console.log(this.props.history)
+    this.props.history.push('/admin/update')
   }
 
   render() {
@@ -21,11 +25,12 @@ class AdminItems extends React.Component {
       <div className="main">
         <AdminSidebar />
         <div>
-          <h3 className="welcome">Admin Inventory</h3>
-
+          <div className="welcome">
+            <h3>Admin Inventory</h3>
+            <h4>{this.props.items.length} items found</h4>
+          </div>
           <div className="all_product_container">
             {this.props.items.map(item => {
-              console.log(item)
               return (
                 <div className="product" key={item.id}>
                   <div>
@@ -51,7 +56,10 @@ class AdminItems extends React.Component {
                       >
                         Remove
                       </button>
-                      <button type="button" onClick={() => this.updateItem()}>
+                      <button
+                        type="button"
+                        onClick={() => this.updateItem(item.id)}
+                      >
                         Update
                       </button>
                     </div>
@@ -76,7 +84,8 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     getItems: type => dispatch(fetchAllItems(type)),
-    removeItem: item => dispatch(deleteItem(item))
+    removeItem: item => dispatch(deleteItem(item)),
+    getItem: itemId => dispatch(fetchSingleItem(itemId))
   }
 }
 

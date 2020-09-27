@@ -42,10 +42,7 @@ router.get('/:itemId', async (req, res, next) => {
 
 router.delete('/:itemId', isAdminMiddleware, async (req, res, next) => {
   try {
-    console.log(
-      'I am getting a "null value in column "itemId" violates not-null constraint" error'
-    )
-    // await Item.destroy({where: {id: req.params.itemId}})
+    await Item.destroy({where: {id: req.params.itemId}})
     res.sendStatus(204)
   } catch (error) {
     next(error)
