@@ -10,11 +10,9 @@ class AllItems extends React.Component {
     this.handleAddToCart = this.handleAddToCart.bind(this)
   }
 
-  componentDidMount() {
-    if (this.props.user.id) {
-      this.props.getCart(this.props.user.id)
-    }
-    this.props.getItems()
+  async componentDidMount() {
+    await this.props.getItems()
+    await this.props.getCart(this.props.user.id)
   }
 
   async handleAddToCart(evt, item) {

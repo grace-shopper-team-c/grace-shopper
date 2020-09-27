@@ -9,7 +9,6 @@ const REMOVE_USER = 'REMOVE_USER'
 const ADD_ORDER_ID = 'ADD_ORDER_ID'
 const UPDATE_USER = 'UPDATE_USER'
 
-
 /**
  * INITIAL STATE
  */
@@ -22,7 +21,6 @@ const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
 export const addOrderId = id => ({type: ADD_ORDER_ID, id})
 const updateExistingUser = user => ({type: UPDATE_USER, user})
-
 
 /**
  * THUNK CREATORS

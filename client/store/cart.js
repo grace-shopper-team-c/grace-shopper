@@ -30,14 +30,15 @@ export const getCart = userId => {
   return async dispatch => {
     try {
       if (userId === undefined) {
-        // localStorage.setItem('guest', JSON.stringify({guest: 'gaston'}))
         if (localStorage.getItem('guest')) {
-          // console.log('BE OUR GUEST')
+          const guest = JSON.parse(localStorage.getItem('guest'))
+          dispatch(gotCart(guest.cart))
         } else {
-          // console.log('NO GUEST TO SERVE')
+          localStorage.setItem(
+            'guest',
+            JSON.stringify({name: 'guest', cart: []})
+          )
         }
-        //localStore
-        //dispatch(addToCart(item, userQuantity))
       } else {
         const {data} = await axios.get(`/api/orders/${userId}`)
         const items = data.items
@@ -55,28 +56,79 @@ export const itemToAdd = (item, userId, qty) => {
   return async dispatch => {
     try {
       if (userId === undefined) {
-        //localStore
-        //dispatch(addToCart(item, userQuantity))
-      }
-      //does not yet account for more than 1 of userQuantity
-      const {cart, user} = store.getState()
-      const orderId = user.orderId
-      const filteredCart = cart.filter(product => product.id === item.id)
-      if (filteredCart.length === 1) {
-        //QUANTITY
-        const {data} = await axios.post(`/api/orders/update/${userId}`, {
-          item,
-          orderId,
-          qty
-        })
-        dispatch(updateCart(data))
+        //guest
+        const guest = JSON.parse(localStorage.getItem('guest'))
+        const filteredCart = guest.cart.filter(
+          product => product.id === item.id
+        )
+        let updatedItem
+        let newQty = qty ? qty : 1
+        if (filteredCart.length === 1) {
+          if (qty === undefined) {
+            //update qty of product in cart with +1 of what is already in cart if no qty
+            //DOES UPDATE, BUT NEED TO REFRESH TO SEE UPDATE..., or leave cart page and come back
+            guest.cart.map(product => {
+              if (product.id === item.id) {
+                product.order_item.quantity =
+                  product.order_item.quantity + newQty
+                updatedItem = product
+              }
+              return product
+            })
+            localStorage.setItem('guest', JSON.stringify(guest))
+            dispatch(
+              updateCart({
+                itemId: updatedItem.id,
+                quantity: updatedItem.order_item.quantity
+              })
+            )
+          } else {
+            //update qty of product already in cart to qty passed in
+            //DOES UPDATE, BUT NEED TO REFRESH TO SEE UPDATE..., or leave cart page and come back
+            guest.cart.map(product => {
+              if (product.id === filteredCart[0].id) {
+                product.order_item.quantity = newQty
+                updatedItem = product
+              }
+              return product
+            })
+            localStorage.setItem('guest', JSON.stringify(guest))
+            dispatch(
+              updateCart({
+                itemId: updatedItem.id,
+                quantity: updatedItem.order_item.quantity
+              })
+            )
+          }
+        } else {
+          //adding new product with no qty passed in, default to 1
+          //adding new product with qty passed in
+          item.order_item = {quantity: newQty}
+          guest.cart.push(item)
+          localStorage.setItem('guest', JSON.stringify(guest))
+          dispatch(addToCart(item))
+        }
       } else {
-        const {data} = await axios.post(`/api/orders/${userId}`, {
-          item,
-          orderId
-        })
-        item.order_item = data
-        dispatch(addToCart(item))
+        //logged in user
+        const {cart, user} = store.getState()
+        const orderId = user.orderId
+        const filteredCart = cart.filter(product => product.id === item.id)
+        if (filteredCart.length === 1) {
+          const {data} = await axios.post(`/api/orders/update/${userId}`, {
+            item,
+            orderId,
+            qty
+          })
+          dispatch(updateCart(data))
+        } else {
+          const {data} = await axios.post(`/api/orders/${userId}`, {
+            item,
+            orderId,
+            qty
+          })
+          item.order_item = data
+          dispatch(addToCart(item))
+        }
       }
     } catch (error) {
       console.error(error.message)
@@ -88,11 +140,17 @@ export const removeItemFromOrder = (itemId, userId) => {
   return async dispatch => {
     try {
       if (userId === undefined) {
-        //localStore
-        //dispatch(removeFromCart(itemId))
+        const guest = JSON.parse(localStorage.getItem('guest'))
+        const removedItemFromCart = guest.cart.filter(product => {
+          if (product.id !== itemId) return product
+        })
+        guest.cart = removedItemFromCart
+        localStorage.setItem('guest', JSON.stringify(guest))
+        dispatch(removeFromCart(itemId))
+      } else {
+        await axios.put(`/api/orders/${userId}`, {itemId})
+        dispatch(removeFromCart(itemId))
       }
-      await axios.put(`/api/orders/${userId}`, {itemId})
-      dispatch(removeFromCart(itemId))
     } catch (error) {
       console.error(error.message)
     }
