@@ -25,20 +25,16 @@ class Checkout extends React.Component {
     return (
       <div className="main">
         <div>
-          Your order includes:
+          <h2>Your order includes:</h2>
           {this.props.cart.map(item => (
             <div key={item.id} className="cart">
               <div>
                 <img src={item.image} />
               </div>
-
-              <h3>{item.name}</h3>
-              <h3>{item.price / 100}</h3>
-
-              <div className="main">
-                <label htmlFor="qty">
-                  Quantity: {item.order_item.quantity}{' '}
-                </label>
+              <div>
+                <h3>{item.name}</h3>
+                <h3>{item.price / 100}</h3>
+                <h3>Quantity: {item.order_item.quantity}</h3>
               </div>
             </div>
           ))}
@@ -94,22 +90,17 @@ class Checkout extends React.Component {
             <button type="submit">Update Address</button>
           </form>
         </div>
-        <div>
-          Card Number:
+        <div id="creditCard">
+          <h2>Card Number:</h2>
           <div className="form-group">
-            <input
-              type="card"
-              className="form-control"
-              id="autocomplete"
-              placeholder="Card Number"
-            />
+            <input type="card" id="autocomplete" placeholder="Card Number" />
           </div>
+          <Link to="/confirmation">
+            <button type="submit" onClick={event => this.handleSubmit(event)}>
+              Submit Order
+            </button>
+          </Link>
         </div>
-        <Link to="/confirmation">
-          <button type="submit" onClick={event => this.handleSubmit(event)}>
-            Submit Order
-          </button>
-        </Link>
       </div>
     )
   }
