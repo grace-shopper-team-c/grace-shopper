@@ -28,5 +28,14 @@ describe('User routes', () => {
       expect(res.body).to.be.an('array')
       expect(res.body[0].email).to.be.equal(codysEmail)
     })
+
+    // it('PUT /api/users', async () => {
+    //   const res = await request(app)
+    //     .put('api/users', {email: 'newemail@puppybook.com'})
+    //     .expect(204)
+    //
+    //   expect(res.body).to.be.an('array')
+    //   expect(res.body[0].email).to.be.equal('newemail@puppybook.com')
+    // })
   }) // end describe('/api/users')
 }) // end describe('User routes')

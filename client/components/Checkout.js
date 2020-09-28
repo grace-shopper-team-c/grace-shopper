@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {getCart, placeOrder} from '../store/cart'
 import {updateUser} from '../store/user'
 import {Link} from 'react-router-dom'
+import {me} from '../store/user'
 
 class Checkout extends React.Component {
   constructor() {
@@ -18,6 +19,7 @@ class Checkout extends React.Component {
   }
 
   async componentDidMount() {
+    await this.props.getMe()
     await this.props.getCart(this.props.user.id)
   }
 
@@ -53,19 +55,25 @@ class Checkout extends React.Component {
         </div>
         <div className="form-group">
           <div className="main">
-            <h4>Shipping Address:</h4>
-            <div style={{paddingLeft: '1em'}}>
-              <p>{this.props.user.address}</p>
-              <p>
-                {this.props.user.city}, {this.props.user.state}{' '}
-                {this.props.user.zip}
-              </p>
-            </div>
+            {this.props.user.address && (
+              <div>
+                <h4>Shipping Address:</h4>
+                <div style={{paddingLeft: '1em'}}>
+                  <p>{this.props.user.address}</p>
+                  <p>
+                    {this.props.user.city}, {this.props.user.state}{' '}
+                    {this.props.user.zip}
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
           <form
             onSubmit={evt => this.props.updateAddress(evt, this.props.user.id)}
           >
-            <h4>Update address:</h4>
+            <h4>
+              {this.props.user.address ? 'Update address' : 'Enter address'}:
+            </h4>
             <div>
               <input
                 name="address"
@@ -159,7 +167,11 @@ class Checkout extends React.Component {
             <input type="card" id="autocomplete" placeholder="Card Number" />
           </div>
           <Link to="/confirmation">
-            <button type="submit" onClick={event => this.handleSubmit(event)}>
+            <button
+              type="submit"
+              onClick={event => this.handleSubmit(event)}
+              disabled={!this.props.user.address}
+            >
               Submit Order
             </button>
           </Link>
@@ -180,6 +192,7 @@ const mapDispatch = dispatch => {
   return {
     placeOrder: orderId => dispatch(placeOrder(orderId)),
     getCart: userId => dispatch(getCart(userId)),
+    getMe: () => dispatch(me()),
     updateAddress(evt, id) {
       evt.preventDefault()
       const address = evt.target.address.value
