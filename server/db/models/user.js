@@ -6,7 +6,10 @@ const User = db.define('user', {
   email: {
     type: Sequelize.STRING,
     unique: true,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      isEmail: true
+    }
   },
   password: {
     type: Sequelize.STRING,
@@ -18,12 +21,23 @@ const User = db.define('user', {
   },
   address: Sequelize.STRING,
   city: Sequelize.STRING,
-  state: Sequelize.STRING,
-  zip: {
-    type: Sequelize.INTEGER,
-    max: 99999
+  state: {
+    type: Sequelize.STRING,
+    is: /^(?:(A[KLRZ]|C[AOT]|D[CE]|FL|GA|HI|I[ADLN]|K[SY]|LA|M[ADEINOST]|N[CDEHJMVY]|O[HKR]|P[AR]|RI|S[CD]|T[NX]|UT|V[AIT]|W[AIVY]))$/
   },
-  card: Sequelize.BIGINT,
+  zip: {
+    type: Sequelize.STRING,
+    validate: {
+      is: /^\d{5}(-\d{4})?$/,
+      notEmpty: true
+    }
+  },
+  card: {
+    type: Sequelize.BIGINT,
+    validate: {
+      isCreditCard: true
+    }
+  },
   salt: {
     type: Sequelize.STRING,
     // Making `.salt` act like a function hides it when serializing to JSON.
