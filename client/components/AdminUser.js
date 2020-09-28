@@ -10,7 +10,7 @@ class AdminUser extends React.Component {
   render() {
     return (
       <div className="main">
-        <AdminSidebar />
+        <AdminSidebar location={this.props.location.pathname} />
         <div className="all_product_container">
           <h3 className="welcome">Admin Page - All Users</h3>
           <div className="all_product_container">

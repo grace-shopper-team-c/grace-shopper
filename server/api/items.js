@@ -25,6 +25,20 @@ router.get('/category/:category', async (req, res, next) => {
   }
 })
 
+router.get('/outOfStock', isAdminMiddleware, async (req, res, next) => {
+  try {
+    const items = await Item.findAll({where: {inventory: 0}})
+    if (!items.length) {
+      const err = new Error('No items were found')
+      err.status = 404
+      next(err)
+    }
+    res.send(items)
+  } catch (error) {
+    next(error)
+  }
+})
+
 router.get('/:itemId', async (req, res, next) => {
   try {
     const item = await Item.findByPk(req.params.itemId)

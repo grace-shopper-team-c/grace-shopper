@@ -78,6 +78,19 @@ export const createOrUpdateItem = (item, history) => {
   }
 }
 
+export const fetchOutOfStock = () => {
+  return async dispatch => {
+    try {
+      const response = await axios.get('/api/items/outOfStock')
+      const items = response.data
+      dispatch(setFilter('outOfStock'))
+      dispatch(getAllItems(items))
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
+}
+
 const itemsReducer = (items = initialItems, action) => {
   switch (action.type) {
     case GET_ALL_ITEMS:

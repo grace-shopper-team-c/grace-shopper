@@ -21,7 +21,7 @@ class AdminItems extends React.Component {
   render() {
     return (
       <div className="main">
-        <AdminSidebar />
+        <AdminSidebar location={this.props.location.pathname} />
         <div className="all_product_container">
           <div className="welcome">
             <h3>Admin Inventory</h3>
