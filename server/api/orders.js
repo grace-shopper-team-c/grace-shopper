@@ -29,6 +29,19 @@ router.get('/:userId', isUser, async (req, res, next) => {
   }
 })
 
+router.post('/addGuestCart/:userId', async (req, res, next) => {
+  try {
+    await OrderItem.create({
+      orderId: req.body.orderId,
+      itemId: req.body.product.id,
+      quantity: req.body.product.order_item.quantity
+    })
+    res.status(200).end()
+  } catch (error) {
+    next(error)
+  }
+})
+
 router.post('/update/:userId', async (req, res, next) => {
   try {
     let newQuantity
@@ -48,19 +61,25 @@ router.post('/update/:userId', async (req, res, next) => {
   }
 })
 
-//Add items to cart/Update quantity
+//Add items to cart
 router.post('/:userId', async (req, res, next) => {
   try {
+    let qty
+    if (req.body.qty) {
+      qty = req.body.qty
+    } else {
+      qty = 1
+    }
     const item = await OrderItem.create({
       orderId: req.body.orderId,
-      itemId: req.body.item.id
+      itemId: req.body.item.id,
+      quantity: qty
     })
     res.send(item)
   } catch (error) {
     next(error)
   }
 })
-
 
 //remote item from cart
 router.put('/:userId', async (req, res, next) => {
@@ -70,8 +89,7 @@ router.put('/:userId', async (req, res, next) => {
     })
     await order
       .removeItem(req.body.itemId)
-      .then(response => res.status(200).end())
-
+      .then(response => res.status(201).end())
   } catch (error) {
     next(error)
   }
