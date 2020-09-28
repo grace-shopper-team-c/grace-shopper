@@ -12,7 +12,7 @@ export const UserHome = props => {
   const {email, address, city, state, zip, handleSubmit, id, isAdmin} = props
 
   return (
-    <div className="main">
+    <div className="all_product_container">
       {isAdmin ? <AdminSidebar /> : ''}
       <div>
         <h3 className="welcome">Welcome, {email}</h3>
@@ -47,7 +47,12 @@ export const UserHome = props => {
                 required
               />
 
-              <select name="state" className="form-control" required>
+              <select
+                name="state"
+                className="form-control"
+                required
+                id="inputState"
+              >
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
                 <option value="AZ">Arizona</option>

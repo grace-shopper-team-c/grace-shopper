@@ -35,7 +35,11 @@ class Checkout extends React.Component {
               </div>
               <div>
                 <h3>{item.name}</h3>
-                <h3>{item.price / 100}</h3>
+                <h3>${item.price / 100} each</h3>
+                <h3>
+                  {' '}
+                  Subtotal: ${item.price * item.order_item.quantity / 100}{' '}
+                </h3>
                 <h3>Quantity: {item.order_item.quantity}</h3>
               </div>
             </div>
@@ -93,7 +97,7 @@ class Checkout extends React.Component {
                 required
               />
 
-              <select name="state" className="form-control">
+              <select name="state" className="form-control" id="inputState">
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
                 <option value="AZ">Arizona</option>
