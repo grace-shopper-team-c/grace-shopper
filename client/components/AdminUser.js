@@ -11,7 +11,7 @@ class AdminUser extends React.Component {
     return (
       <div className="main">
         <AdminSidebar />
-        <div>
+        <div className="all_product_container">
           <h3 className="welcome">Admin Page - All Users</h3>
           <div className="all_product_container">
             {this.props.allUsers ? (
@@ -20,7 +20,7 @@ class AdminUser extends React.Component {
                   <div key={user.email}>
                     <p>{user.email}</p>
                     <p>
-                      {user.city}, {user.state}
+                      {user.city !== '' ? `${user.city}, ${user.state}` : ''}
                     </p>
                   </div>
                 )

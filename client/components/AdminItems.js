@@ -22,7 +22,7 @@ class AdminItems extends React.Component {
     return (
       <div className="main">
         <AdminSidebar />
-        <div>
+        <div className="all_product_container">
           <div className="welcome">
             <h3>Admin Inventory</h3>
             <h4>{this.props.items.length} items found</h4>
