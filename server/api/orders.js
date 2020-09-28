@@ -1,42 +1,31 @@
 const router = require('express').Router()
 const {Order, OrderItem, Item} = require('../db/models')
 
-const isUser = (req, res, next) => {
-  if (req.user /* && req.user.id === Number(req.params.userId) */) {
-    next()
-  } else {
-    const err = new Error('Wrong Account')
-    err.status = 401
-    next(err)
-  }
-}
+// router.get('/:userId', isLoggedInUser, async (req, res, next) => {
+//   try {
+//     const [order] = await Order.findOrCreate({
+//       where: {userId: req.params.userId, fulfilled: false},
+//       include: [OrderItem],
+//     })
+//     const items = await order.getItems()
+//     res.send({items, order})
+//   } catch (error) {
+//     next(error)
+//   }
+// })
 
-//GET or create orders specific to user account
-router.get('/:userId', isUser, async (req, res, next) => {
-  try {
-    const [order, wasCreated] = await Order.findOrCreate({
-      where: {userId: req.user.id, fulfilled: false},
-      include: [OrderItem]
-    })
-    const items = await order.getItems()
-    res.send({items, order})
-  } catch (error) {
-    next(error)
-  }
-})
-
-router.post('/addGuestCart/:userId', async (req, res, next) => {
-  try {
-    await OrderItem.create({
-      orderId: req.body.orderId,
-      itemId: req.body.product.id,
-      quantity: req.body.product.order_item.quantity
-    })
-    res.status(200).end()
-  } catch (error) {
-    next(error)
-  }
-})
+// router.post('/addGuestCart/:userId', async (req, res, next) => {
+//   try {
+//     await OrderItem.create({
+//       orderId: req.body.orderId,
+//       itemId: req.body.product.id,
+//       quantity: req.body.product.order_item.quantity,
+//     })
+//     res.status(200).end()
+//   } catch (error) {
+//     next(error)
+//   }
+// })
 
 router.post('/update/:userId', async (req, res, next) => {
   try {

@@ -48,12 +48,12 @@ export const getCart = userId => {
           )
         }
       } else {
-        const {data} = await axios.get(`/api/orders/${userId}`)
+        const {data} = await axios.get(`/api/users/${userId}/orders`)
         items = data.items
         orderId = data.order.id
         if (guest.cart.length > 0) {
           guest.cart.forEach(async product => {
-            await axios.post(`/api/orders/addGuestCart/${userId}`, {
+            await axios.post(`/api/users/${userId}/orders`, {
               product,
               orderId
             })
