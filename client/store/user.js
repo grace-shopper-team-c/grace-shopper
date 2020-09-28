@@ -85,7 +85,6 @@ export default function(state = defaultUser, action) {
       return {...state, orderId: action.id}
     case UPDATE_USER:
       return action.user
-
     default:
       return state
   }

@@ -21,7 +21,7 @@ form div {
 }
 
 /*userpage styling*/
-#welcome {
+.welcome {
   font-size: 2em;
   text-align: center;
 }
@@ -107,7 +107,7 @@ aside {
 
 .product {
   color: black;
-  width: 40%;
+  width: 25%;
   border: grey solid 2px;
   padding: 1em;
   margin: 1em;
@@ -168,15 +168,7 @@ aside {
 }
 
 /*signup & login pages*/
-.cart_total {
-  display: flex;
-  justify-content: center;
-}
 
-.cart_total h3 {
-  margin: 1em 2em;
-  font-size: 1.5em;
-}
 .login_box {
   display: block;
   margin: 10% 20%;
@@ -207,7 +199,15 @@ aside {
 }
 
 /* cart styling */
+.cart_total {
+  display: flex;
+  justify-content: center;
+}
 
+.cart_total h3 {
+  margin: 1em 2em;
+  font-size: 1.5em;
+}
 .cart {
   display: flex;
   flex-flow: row nowrap;

@@ -7,13 +7,15 @@ import itemsReducer from './items'
 import singleItemReducer from './singleItem'
 import cartReducer from './cart'
 import ordersReducer from './order'
+import adminReducer from './admin'
 
 const reducer = combineReducers({
   user,
   items: itemsReducer,
   singleItem: singleItemReducer,
   cart: cartReducer,
-  order: ordersReducer
+  order: ordersReducer,
+  admin: adminReducer
 })
 
 const middleware = composeWithDevTools(
