@@ -11,6 +11,17 @@ const isAdminMiddleware = (req, res, next) => {
   }
 }
 
+const isUser = (req, res, next) => {
+  if (req.user && req.user.id === Number(req.params.userId)) {
+    next()
+  } else {
+    const err = new Error('Wrong Account')
+    err.status = 401
+    next(err)
+  }
+}
+
 module.exports = {
-  isAdminMiddleware
+  isAdminMiddleware,
+  isUser
 }

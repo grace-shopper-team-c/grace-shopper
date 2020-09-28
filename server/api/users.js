@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const {User} = require('../db/models')
-const {isAdminMiddleware} = require('./customMiddleware')
+const {isAdminMiddleware, isUser} = require('./customMiddleware')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -18,20 +18,18 @@ router.get('/', async (req, res, next) => {
 })
 
 // PUT /api/users/userId
-router.put('/:userId', async (req, res, next) => {
+router.put('/:userId', isUser, async (req, res, next) => {
   try {
-    const userToUpdate = await User.findByPk(req.params.userId)
+    let [updatedRows, updatedUser] = await User.update(req.body, {
+      where: {id: req.params.userId},
+      returning: true,
+      plain: true
+    })
 
-    if (userToUpdate === null) {
+    if (updatedRows.length === 0) {
       res.sendStatus(404)
     } else {
-      let [updatedRows, updatedUser] = await User.update(req.body, {
-        where: {id: req.params.userId},
-        returning: true,
-        plain: true
-      })
-
-      res.send(updatedUser)
+      res.status(204).send(updatedUser)
     }
   } catch (err) {
     next(err)

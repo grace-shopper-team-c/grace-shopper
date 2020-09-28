@@ -1,15 +1,6 @@
 const router = require('express').Router()
 const {Order, OrderItem, Item} = require('../db/models')
-
-const isUser = (req, res, next) => {
-  if (req.user /* && req.user.id === Number(req.params.userId) */) {
-    next()
-  } else {
-    const err = new Error('Wrong Account')
-    err.status = 401
-    next(err)
-  }
-}
+const {isUser} = require('./customMiddleware')
 
 //GET or create orders specific to user account
 router.get('/:userId', isUser, async (req, res, next) => {
