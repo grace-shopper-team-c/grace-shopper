@@ -1,7 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {removeItemFromOrder, getCart, itemToAdd} from '../store/cart'
 import {Link} from 'react-router-dom'
+import {removeItemFromOrder, getCart, itemToAdd} from '../store/cart'
+import {me} from '../store/user'
+
 
 class Cart extends React.Component {
   constructor() {
@@ -10,8 +12,10 @@ class Cart extends React.Component {
     this.handleRemoval = this.handleRemoval.bind(this)
   }
 
-  componentDidMount() {
-    this.props.getCart(this.props.user.id)
+  async componentDidMount() {
+    await this.props.getMe()
+    await this.props.getCart(this.props.user.id)
+
   }
 
   async handleAddToCart(evt, item) {
@@ -99,7 +103,8 @@ const mapDispatch = dispatch => {
     removeFromCart: (itemId, userId) =>
       dispatch(removeItemFromOrder(itemId, userId)),
     getCart: userId => dispatch(getCart(userId)),
-    updateItem: (item, userId, qty) => dispatch(itemToAdd(item, userId, qty))
+    updateItem: (item, userId, qty) => dispatch(itemToAdd(item, userId, qty)),
+    getMe: () => dispatch(me())
   }
 }
 

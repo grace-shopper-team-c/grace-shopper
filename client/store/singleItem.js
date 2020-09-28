@@ -5,15 +5,25 @@ const inititalItem = {
   name: '',
   image: '',
   description: '',
-  price: 0
+  price: 0,
+  category: 'Select a Category',
+  inventory: 0
 }
 
 const SET_ITEM = 'SET_ITEM'
+const UPDATE_ITEM_INFO = 'UPDATE_ITEM_INFO'
 
-const setItem = item => {
+export const setItem = item => {
   return {
     type: SET_ITEM,
     item: item
+  }
+}
+
+export const updateItemInfo = change => {
+  return {
+    type: UPDATE_ITEM_INFO,
+    change
   }
 }
 
@@ -33,6 +43,8 @@ const singleItemReducer = (item = inititalItem, action) => {
   switch (action.type) {
     case SET_ITEM:
       return action.item
+    case UPDATE_ITEM_INFO:
+      return {...item, ...action.change}
     default:
       return item
   }

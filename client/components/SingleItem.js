@@ -19,12 +19,13 @@ class SingleItem extends React.Component {
   }
 
   changeQuantity(evt) {
-    this.setState({[evt.target.name]: evt.target.value})
+    this.setState({qty: evt.target.value})
   }
 
   async handleAddToCart(evt, item) {
     evt.preventDefault()
     await this.props.addToCart(item, this.props.user.id, Number(this.state.qty))
+    this.setState({qty: '1'})
   }
 
   render() {
