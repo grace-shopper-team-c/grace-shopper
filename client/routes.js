@@ -6,6 +6,7 @@ import {Login, Signup, UserHome, SingleItem} from './components'
 import Checkout from './components/Checkout'
 import Cart from './components/Cart'
 import HomePage from './components/HomePage'
+import Confirmation from './components/Confirmation'
 import {me} from './store'
 
 /**
@@ -23,6 +24,7 @@ class Routes extends Component {
       <Switch>
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/checkout" component={Checkout} />
+        <Route exact path="/confirmation" component={Confirmation} />
         <Route exact path="/" component={HomePage} />
         {/* Routes placed here are available to all visitors */}
         <Route exact path="/login" component={Login} />
