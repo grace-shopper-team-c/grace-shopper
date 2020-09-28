@@ -6,6 +6,9 @@ import {fetchAllItems} from '../store/items'
 const AdminSidebar = props => {
   return (
     <aside>
+      <Link to="/account" className="filter">
+        <h2>Personal Account</h2>
+      </Link>
       <Link className="filter" to="/admin/users">
         <h2>View All Users</h2>
       </Link>

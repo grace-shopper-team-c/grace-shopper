@@ -20,6 +20,10 @@ form div {
   display: inline-block;
 }
 
+.error {
+  color: red;
+}
+
 /*userpage styling*/
 .welcome {
   font-size: 2em;
@@ -202,12 +206,22 @@ aside {
 .cart_total {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .cart_total h3 {
   margin: 1em 2em;
   font-size: 1.5em;
 }
+
+.cart_total button {
+  font-size: 1em;
+}
+
+.cart_total button:hover {
+  background-color: lightgreen;
+}
+
 .cart {
   display: flex;
   flex-flow: row nowrap;
@@ -226,4 +240,11 @@ aside {
 
 .cart button {
   height: 3em;
+}
+.cart button:hover {
+  background-color: lightcoral;
+}
+
+#creditCard {
+  margin-right: 3em;
 }
