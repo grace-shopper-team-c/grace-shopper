@@ -9,6 +9,7 @@ import cartReducer from './cart'
 import ordersReducer from './order'
 import adminReducer from './admin'
 
+
 const reducer = combineReducers({
   user,
   items: itemsReducer,
@@ -16,6 +17,7 @@ const reducer = combineReducers({
   cart: cartReducer,
   order: ordersReducer,
   admin: adminReducer
+
 })
 
 const middleware = composeWithDevTools(

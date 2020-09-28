@@ -46,6 +46,34 @@ async function seed() {
         'https://images-na.ssl-images-amazon.com/images/I/71K530MlZwL._AC_SL1500_.jpg',
       description:
         'The perfect scent to smell the outdoors while indoors as well as help you relieve your stress'
+    }),
+    Item.create({
+      name: 'Bacon & Bourbon',
+      category: 'candle',
+      inventory: 100,
+      price: 999,
+      image:
+        'https://www.dapperconfidential.com/wp-content/uploads/2019/06/7-585x500.jpg',
+      description:
+        'For when you want your home to smell nice but still like a bachelor pad'
+    }),
+    Item.create({
+      name: '5 OClock Shadow',
+      category: 'candle',
+      inventory: 50,
+      price: 1299,
+      image:
+        'https://images-na.ssl-images-amazon.com/images/I/61-pg9RamCL._AC_SX522_.jpg',
+      description: "Listen... we don't know what this smells like, either."
+    }),
+    Item.create({
+      name: 'Daily Face Wash',
+      category: 'skin',
+      inventory: 80,
+      price: 1599,
+      image:
+        'https://m.media-amazon.com/images/S/aplus-media/sc/556e43a0-52ce-4fe9-bbe9-134cddcbf617.__CR0,1,2083,2083_PT0_SX220_V1___.png',
+      description: 'Sleek and minimalist, just like you!'
     })
   ])
 

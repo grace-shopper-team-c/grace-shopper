@@ -4,15 +4,18 @@ import {Link} from 'react-router-dom'
 import {removeItemFromOrder, getCart, itemToAdd} from '../store/cart'
 import {me} from '../store/user'
 
+
 class Cart extends React.Component {
   constructor() {
     super()
     this.handleAddToCart = this.handleAddToCart.bind(this)
     this.handleRemoval = this.handleRemoval.bind(this)
   }
+
   async componentDidMount() {
     await this.props.getMe()
     await this.props.getCart(this.props.user.id)
+
   }
 
   async handleAddToCart(evt, item) {

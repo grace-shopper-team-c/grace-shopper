@@ -9,6 +9,7 @@ const ADD_TO_CART = 'ADD_TO_CART'
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 const GOT_CART = 'GOT_CART'
 const UPDATE = 'UPDATE'
+const PLACE_ORDER = 'PLACE_ORDER'
 
 export const addToCart = item => {
   return {type: ADD_TO_CART, item}
@@ -22,6 +23,11 @@ export const gotCart = items => ({
 export const removeFromCart = itemId => ({
   type: REMOVE_FROM_CART,
   itemId
+})
+
+const confirmOrder = orderId => ({
+  type: PLACE_ORDER,
+  orderId
 })
 
 const updateCart = item => ({type: UPDATE, item})
@@ -39,6 +45,7 @@ export const getCart = userId => {
             JSON.stringify({name: 'guest', cart: []})
           )
         }
+
       } else {
         const {data} = await axios.get(`/api/orders/${userId}`)
         const items = data.items
@@ -58,7 +65,13 @@ export const getCart = userId => {
         }
         if (items) dispatch(gotCart(items))
         dispatch(addOrderId(orderId))
+
       }
+      const {data} = await axios.get(`/api/orders/${userId}`)
+      const items = data.items
+      const orderId = data.order.id
+      if (items) dispatch(gotCart(items))
+      dispatch(addOrderId(orderId))
     } catch (error) {
       console.error(error.message)
     }
@@ -162,6 +175,17 @@ export const removeItemFromOrder = (itemId, userId) => {
   }
 }
 
+export const placeOrder = orderId => {
+  return async dispatch => {
+    try {
+      await axios.put(`/api/orders/order/${orderId}`, {fulfilled: true})
+      dispatch(confirmOrder(orderId))
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
+}
+
 const cartReducer = (cart = initialState, action) => {
   switch (action.type) {
     case ADD_TO_CART:
@@ -179,6 +203,8 @@ const cartReducer = (cart = initialState, action) => {
       return cart.filter(item => {
         if (item.id !== action.itemId) return item
       })
+    case PLACE_ORDER:
+      return initialState
     default:
       return cart
   }
