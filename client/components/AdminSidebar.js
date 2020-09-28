@@ -7,7 +7,7 @@ const AdminSidebar = props => {
   return (
     <aside>
       <Link to="/account" className="filter">
-        <h2>Personal Account</h2>
+        <h2> My Account</h2>
       </Link>
       <Link className="filter" to="/admin/users">
         <h2>View All Users</h2>
@@ -22,6 +22,7 @@ const AdminSidebar = props => {
       >
         <h2>All Products</h2>
       </Link>
+      <h2>Filter By Category:</h2>
       <Link
         to="/admin/items"
         className="filter"

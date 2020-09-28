@@ -1,5 +1,6 @@
 import axios from 'axios'
 import {setItem} from './singleItem'
+import {setFilter} from './filterType'
 
 const initialItems = []
 
@@ -34,8 +35,10 @@ export const fetchAllItems = type => {
       let response
       if (type) {
         response = await axios.get(`/api/items/category/${type}`)
+        dispatch(setFilter(type))
       } else {
         response = await axios.get('/api/items')
+        dispatch(setFilter(''))
       }
       const items = response.data
       dispatch(getAllItems(items))

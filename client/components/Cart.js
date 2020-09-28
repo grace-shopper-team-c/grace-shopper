@@ -59,7 +59,11 @@ class Cart extends React.Component {
               </div>
 
               <h3>{item.name}</h3>
-              <h3>{item.price / 100}</h3>
+              <h3>${item.price / 100} each</h3>
+              <h3>
+                {' '}
+                Subtotal: ${item.price * item.order_item.quantity / 100}{' '}
+              </h3>
 
               <div className="main">
                 <label htmlFor="qty">Quantity: </label>
@@ -68,11 +72,17 @@ class Cart extends React.Component {
                   defaultValue={item.order_item.quantity}
                   onChange={evt => this.handleAddToCart(evt, item)}
                 >
-                  {Array.from(Array(item.inventory)).map((ele, idx) => (
-                    <option key={idx} value={idx + 1}>
-                      {idx + 1}
-                    </option>
-                  ))}
+                  {item.inventory > 15
+                    ? Array.from(Array(15)).map((ele, idx) => (
+                        <option key={idx} value={idx + 1}>
+                          {idx + 1}
+                        </option>
+                      ))
+                    : Array.from(Array(item.inventory)).map((ele, idx) => (
+                        <option key={idx} value={idx + 1}>
+                          {idx + 1}
+                        </option>
+                      ))}
                 </select>
               </div>
               <button

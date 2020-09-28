@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const {Order, OrderItem, Item} = require('../db/models')
 
+// marks order as fulfilled and decreases item inventory
 router.put('/order/:orderId', async (req, res, next) => {
   try {
     const order = await Order.findByPk(req.params.orderId)
