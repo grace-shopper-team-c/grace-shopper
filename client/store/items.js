@@ -82,7 +82,6 @@ const itemsReducer = (items = initialItems, action) => {
     case DELETE_ITEM:
       return items.filter(item => item.id !== action.item.id)
     case ADD_ITEM:
-      console.log(action.item)
       return [...items, action.item]
     default:
       return items

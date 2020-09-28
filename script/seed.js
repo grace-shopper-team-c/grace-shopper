@@ -86,7 +86,8 @@ async function seed() {
       city: 'Fern',
       state: 'CO',
       zip: 13456,
-      card: 474747474747
+      card: 474747474747,
+      isAdmin: true
     }),
     User.create({
       // name: 'Seymour Cheeks',
