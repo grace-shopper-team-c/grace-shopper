@@ -27,7 +27,7 @@ class NewItem extends React.Component {
     const item = this.props.item
     stateKeys.map(key => this.setState({[key]: true}))
     if (item.category === 'Select a Category') this.setState({validCat: false})
-    if (!item.name) this.setState({validName: false})
+    if (!item.name || item.name === ' ') this.setState({validName: false})
     if (item.price < 1) this.setState({validPrice: false})
     if ((!item.id && item.inventory < 1) || item.inventory < 0)
       this.setState({validInventory: false})
@@ -57,13 +57,14 @@ class NewItem extends React.Component {
               ) : (
                 <span className="error">Enter a valid Name</span>
               )}
-              <input
-                type="string"
-                value={this.props.item.name}
-                onChange={() => this.handleChange()}
-                name="name"
-              />
             </label>
+            <input
+              type="string"
+              value={this.props.item.name}
+              onChange={() => this.handleChange()}
+              name="name"
+            />
+
             <label htmlFor="Item Category">
               Category:{' '}
               {this.state.validCat ? (

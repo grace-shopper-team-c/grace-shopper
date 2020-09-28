@@ -20,6 +20,10 @@ form div {
   display: inline-block;
 }
 
+.error {
+  color: red;
+}
+
 /*userpage styling*/
 .welcome {
   font-size: 2em;
