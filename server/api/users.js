@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const {User} = require('../db/models')
-const {isAdminMiddleWare} = require('./customMiddleware')
+const {isAdminMiddleware} = require('./customMiddleware')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -38,7 +38,7 @@ router.put('/:userId', async (req, res, next) => {
   }
 })
 
-router.get('/all', async (req, res, next) => {
+router.get('/all', isAdminMiddleware, async (req, res, next) => {
   try {
     let allUsers = await User.findAll({attributes: ['email', 'city', 'state']})
     if (!allUsers.length) {
