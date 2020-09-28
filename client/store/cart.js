@@ -34,6 +34,8 @@ const updateCart = item => ({type: UPDATE, item})
 
 export const getCart = userId => {
   return async dispatch => {
+    let items
+    let orderId
     try {
       const guest = JSON.parse(localStorage.getItem('guest'))
       if (userId === undefined) {
@@ -45,11 +47,10 @@ export const getCart = userId => {
             JSON.stringify({name: 'guest', cart: []})
           )
         }
-
       } else {
         const {data} = await axios.get(`/api/orders/${userId}`)
-        const items = data.items
-        const orderId = data.order.id
+        items = data.items
+        orderId = data.order.id
         if (guest.cart.length > 0) {
           guest.cart.forEach(async product => {
             await axios.post(`/api/orders/addGuestCart/${userId}`, {
@@ -65,11 +66,7 @@ export const getCart = userId => {
         }
         if (items) dispatch(gotCart(items))
         dispatch(addOrderId(orderId))
-
       }
-      const {data} = await axios.get(`/api/orders/${userId}`)
-      const items = data.items
-      const orderId = data.order.id
       if (items) dispatch(gotCart(items))
       dispatch(addOrderId(orderId))
     } catch (error) {

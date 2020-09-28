@@ -12,6 +12,7 @@ class AllItems extends React.Component {
 
   async componentDidMount() {
     await this.props.getItems()
+
     await this.props.getCart(this.props.user.id)
   }
 

@@ -18,12 +18,8 @@ router.get('/:userId', isUser, async (req, res, next) => {
       where: {userId: req.user.id, fulfilled: false},
       include: [OrderItem]
     })
-    if (!wasCreated) {
-      const items = await order.getItems()
-      res.send({items, order})
-    } else {
-      res.send(order)
-    }
+    const items = await order.getItems()
+    res.send({items, order})
   } catch (error) {
     next(error)
   }
@@ -81,7 +77,6 @@ router.post('/:userId', async (req, res, next) => {
   }
 })
 
-
 // change order to fulfilled and sell items
 router.put('/order/:orderId', async (req, res, next) => {
   try {
@@ -104,7 +99,6 @@ router.put('/order/:orderId', async (req, res, next) => {
     next(error)
   }
 })
-
 
 //remote item from cart
 router.put('/:userId', async (req, res, next) => {
