@@ -11,7 +11,7 @@ const isAdminMiddleware = (req, res, next) => {
   }
 }
 
-const isUser = (req, res, next) => {
+const isLoggedInUser = (req, res, next) => {
   if (req.user && req.user.id === Number(req.params.userId)) {
     next()
   } else {
@@ -23,5 +23,5 @@ const isUser = (req, res, next) => {
 
 module.exports = {
   isAdminMiddleware,
-  isUser
+  isLoggedInUser
 }

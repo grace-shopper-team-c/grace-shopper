@@ -1,6 +1,6 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
-const {isAdminMiddleware, isUser} = require('./customMiddleware')
+const {User, Order, OrderItem} = require('../db/models')
+const {isAdminMiddleware, isLoggedInUser} = require('./customMiddleware')
 module.exports = router
 
 router.get('/all', isAdminMiddleware, async (req, res, next) => {
@@ -21,8 +21,36 @@ router.get('/all', isAdminMiddleware, async (req, res, next) => {
   }
 })
 
+// /api/users/:userId/orders
+router.get('/:userId/orders', isLoggedInUser, async (req, res, next) => {
+  try {
+    const [order] = await Order.findOrCreate({
+      where: {userId: req.params.userId, fulfilled: false},
+      include: [OrderItem]
+    })
+    const items = await order.getItems()
+    res.send({items, order})
+  } catch (error) {
+    next(error)
+  }
+})
+
+// POST /api/users/:userId/orders
+router.post('/:userId/orders', isLoggedInUser, async (req, res, next) => {
+  try {
+    await OrderItem.create({
+      orderId: req.body.orderId,
+      itemId: req.body.product.id,
+      quantity: req.body.product.order_item.quantity
+    })
+    res.status(200).end()
+  } catch (error) {
+    next(error)
+  }
+})
+
 // PUT /api/users/userId
-router.put('/:userId', isUser, async (req, res, next) => {
+router.put('/:userId', isLoggedInUser, async (req, res, next) => {
   try {
     let [updatedRows, updatedUser] = await User.update(req.body, {
       where: {id: req.params.userId},

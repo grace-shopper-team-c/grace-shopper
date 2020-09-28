@@ -48,12 +48,12 @@ export const getCart = userId => {
           )
         }
       } else {
-        const {data} = await axios.get(`/api/orders/${userId}`)
+        const {data} = await axios.get(`/api/users/${userId}/orders`)
         items = data.items
         orderId = data.order.id
         if (guest.cart.length > 0) {
           guest.cart.forEach(async product => {
-            await axios.post(`/api/orders/addGuestCart/${userId}`, {
+            await axios.post(`/api/users/${userId}/orders`, {
               product,
               orderId
             })
@@ -129,16 +129,16 @@ export const itemToAdd = (item, userId, qty) => {
         const orderId = user.orderId
         const filteredCart = cart.filter(product => product.id === item.id)
         if (filteredCart.length === 1) {
-          const {data} = await axios.post(`/api/orders/update/${userId}`, {
+          const {data} = await axios.put(`/api/order-items/${orderId}`, {
             item,
-            orderId,
+            /* orderId, */
             qty
           })
           dispatch(updateCart(data))
         } else {
-          const {data} = await axios.post(`/api/orders/${userId}`, {
+          const {data} = await axios.post(`/api/order-items/${orderId}`, {
             item,
-            orderId,
+            /* orderId, */
             qty
           })
           item.order_item = data
@@ -151,10 +151,10 @@ export const itemToAdd = (item, userId, qty) => {
   }
 }
 
-export const removeItemFromOrder = (itemId, userId) => {
+export const removeItemFromOrder = (itemId, orderId) => {
   return async dispatch => {
     try {
-      if (userId === undefined) {
+      if (orderId === undefined) {
         const guest = JSON.parse(localStorage.getItem('guest'))
         const removedItemFromCart = guest.cart.filter(product => {
           if (product.id !== itemId) return product
@@ -163,7 +163,7 @@ export const removeItemFromOrder = (itemId, userId) => {
         localStorage.setItem('guest', JSON.stringify(guest))
         dispatch(removeFromCart(itemId))
       } else {
-        await axios.put(`/api/orders/${userId}`, {itemId})
+        await axios.delete(`/api/order-items/${orderId}&${itemId}`)
         dispatch(removeFromCart(itemId))
       }
     } catch (error) {
