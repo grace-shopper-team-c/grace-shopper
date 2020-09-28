@@ -4,7 +4,6 @@ import {Link} from 'react-router-dom'
 import {removeItemFromOrder, getCart, itemToAdd} from '../store/cart'
 import {me} from '../store/user'
 
-
 class Cart extends React.Component {
   constructor() {
     super()
@@ -15,7 +14,6 @@ class Cart extends React.Component {
   async componentDidMount() {
     await this.props.getMe()
     await this.props.getCart(this.props.user.id)
-
   }
 
   async handleAddToCart(evt, item) {
@@ -49,6 +47,9 @@ class Cart extends React.Component {
               }, 0)
               .toFixed(2)}
           </h3>
+          <Link to="/checkout">
+            <button type="submit">Checkout</button>
+          </Link>
         </div>
         <div>
           {this.props.cart.map((item, idx) => (
@@ -82,9 +83,6 @@ class Cart extends React.Component {
               </button>
             </div>
           ))}
-          <Link to="/checkout">
-            <button type="submit">Checkout</button>
-          </Link>
         </div>
       </div>
     )
