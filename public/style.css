@@ -58,11 +58,12 @@ label {
 }
 
 #inputCity {
-  width: 50%;
+  width: 45%;
 }
 
 #inputState {
-  width: 10%;
+  width: 17%;
+  font-size: 0.85em;
 }
 
 #inputZip {

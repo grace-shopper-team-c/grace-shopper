@@ -85,7 +85,7 @@ class Checkout extends React.Component {
                 required
               />
 
-              <select name="state" className="form-control">
+              <select name="state" className="form-control" id="inputState">
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
                 <option value="AZ">Arizona</option>

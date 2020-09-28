@@ -68,11 +68,17 @@ class Cart extends React.Component {
                   defaultValue={item.order_item.quantity}
                   onChange={evt => this.handleAddToCart(evt, item)}
                 >
-                  {Array.from(Array(item.inventory)).map((ele, idx) => (
-                    <option key={idx} value={idx + 1}>
-                      {idx + 1}
-                    </option>
-                  ))}
+                  {item.inventory > 15
+                    ? Array.from(Array(15)).map((ele, idx) => (
+                        <option key={idx} value={idx + 1}>
+                          {idx + 1}
+                        </option>
+                      ))
+                    : Array.from(Array(item.inventory)).map((ele, idx) => (
+                        <option key={idx} value={idx + 1}>
+                          {idx + 1}
+                        </option>
+                      ))}
                 </select>
               </div>
               <button
