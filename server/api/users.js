@@ -3,17 +3,21 @@ const {User} = require('../db/models')
 const {isAdminMiddleware} = require('./customMiddleware')
 module.exports = router
 
-router.get('/', async (req, res, next) => {
+router.get('/all', isAdminMiddleware, async (req, res, next) => {
   try {
-    const users = await User.findAll({
-      // explicitly select only the id and email fields - even though
-      // users' passwords are encrypted, it won't help if we just
-      // send everything to anyone who asks!
-      attributes: ['id', 'email']
-    })
-    res.json(users)
-  } catch (err) {
-    next(err)
+    // explicitly select only the id and email fields - even though
+    // users' passwords are encrypted, it won't help if we just
+    // send everything to anyone who asks!
+    let allUsers = await User.findAll({attributes: ['email', 'city', 'state']})
+    if (!allUsers.length) {
+      let error = new Error('No users found')
+      error.status = 404
+      next(error)
+    } else {
+      res.send(allUsers)
+    }
+  } catch (error) {
+    next(error)
   }
 })
 
@@ -35,20 +39,5 @@ router.put('/:userId', async (req, res, next) => {
     }
   } catch (err) {
     next(err)
-  }
-})
-
-router.get('/all', isAdminMiddleware, async (req, res, next) => {
-  try {
-    let allUsers = await User.findAll({attributes: ['email', 'city', 'state']})
-    if (!allUsers.length) {
-      let error = new Error('No users found')
-      error.status = 404
-      next(error)
-    } else {
-      res.send(allUsers)
-    }
-  } catch (error) {
-    next(error)
   }
 })

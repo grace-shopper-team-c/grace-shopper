@@ -59,7 +59,11 @@ class Cart extends React.Component {
               </div>
 
               <h3>{item.name}</h3>
-              <h3>{item.price / 100}</h3>
+              <h3>${item.price / 100} each</h3>
+              <h3>
+                {' '}
+                Subtotal: ${item.price * item.order_item.quantity / 100}{' '}
+              </h3>
 
               <div className="main">
                 <label htmlFor="qty">Quantity: </label>
