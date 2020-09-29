@@ -24,9 +24,11 @@ class AllItems extends React.Component {
   }
 
   render() {
+    // filtering out items with no inventory
+    const items = this.props.items.filter(item => item.inventory > 0)
     return (
       <div className="all_product_container">
-        {this.props.items.map(item => (
+        {items.map(item => (
           <Link className="product" to={`/item/${item.id}`} key={item.id}>
             <div>
               <img src={item.image} />

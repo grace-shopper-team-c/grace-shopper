@@ -20,20 +20,19 @@ describe('User routes', () => {
       })
     })
 
-    it('GET /api/users', async () => {
+    it('GET /api/users/all', async () => {
       const res = await request(app)
-        .get('/api/users')
-        .expect(200)
+        .get('/api/users/all')
+        .expect(403)
 
-      expect(res.body).to.be.an('array')
-      expect(res.body[0].email).to.be.equal(codysEmail)
+      expect(res.error.text).to.be.equal('User is not an admin!!!')
     })
 
-    // it('PUT /api/users', async () => {
+    // it('PUT /api/users/:userId', async () => {
     //   const res = await request(app)
-    //     .put('api/users', {email: 'newemail@puppybook.com'})
+    //     .put('api/users/0', {email: 'newemail@puppybook.com'})
     //     .expect(204)
-    //
+
     //   expect(res.body).to.be.an('array')
     //   expect(res.body[0].email).to.be.equal('newemail@puppybook.com')
     // })
