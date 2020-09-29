@@ -54,7 +54,7 @@ router.post('/:userId/orders', isLoggedInUser, async (req, res, next) => {
   }
 })
 
-// PUT /api/users/userId
+// PUT /api/users/:userId
 //Updating user infomation
 router.put('/:userId', isLoggedInUser, async (req, res, next) => {
   try {
