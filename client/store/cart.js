@@ -6,7 +6,8 @@ import {
   removeGuestItem,
   guestItemToAdd,
   getGuestCart,
-  userItemToAdd
+  userItemToAdd,
+  resetGuestCart
 } from './cartFunctions'
 
 const initialState = []
@@ -71,7 +72,6 @@ export const itemToAdd = (item, userId, qty) => {
         const {cart, user} = store.getState()
         const orderId = user.orderId
         dispatch(await userItemToAdd(cart, orderId, item, qty))
-
       }
     } catch (error) {
       console.error(error.message)
@@ -97,8 +97,12 @@ export const removeItemFromOrder = (itemId, orderId) => {
 export const placeOrder = orderId => {
   return async dispatch => {
     try {
-      await axios.put(`/api/orders/order/${orderId}`, {fulfilled: true})
-      dispatch(confirmOrder(orderId))
+      if (orderId === undefined) {
+        resetGuestCart()
+      } else {
+        await axios.put(`/api/orders/order/${orderId}`, {fulfilled: true})
+        dispatch(confirmOrder(orderId))
+      }
     } catch (error) {
       console.error(error.message)
     }
