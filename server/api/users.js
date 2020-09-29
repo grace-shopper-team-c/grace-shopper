@@ -60,16 +60,12 @@ router.put('/:userId', isLoggedInUser, async (req, res, next) => {
   try {
     const userToUpdate = await User.findByPk(req.params.userId)
 
-    let [updatedRows, updatedUser] = await User.update(req.body, {
-      where: {id: req.params.userId},
-      returning: true,
-      plain: true
-    })
+    let updatedUser = await userToUpdate.update(req.body)
 
     if (userToUpdate === null) {
       res.sendStatus(404)
     } else if (updatedUser) {
-      res.send(updatedUser)
+      res.send(updatedUser).status(204)
     }
   } catch (err) {
     next(err)

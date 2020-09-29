@@ -91,3 +91,9 @@ User.beforeUpdate(setSaltAndPassword)
 User.beforeBulkCreate(users => {
   users.forEach(setSaltAndPassword)
 })
+
+User.beforeUpdate((user, options) => {
+  if (user.isAdmin && !user._previousDataValues.isAdmin) {
+    return Promise.reject(new Error("Can't become an admin!"))
+  }
+})
