@@ -16,7 +16,6 @@ import UpdateForm from './UpdateForm'
 
 const stripePromise = loadStripe('pk_test_JJ1eMdKN0Hp4UFJ6kWXWO4ix00jtXzq5XG')
 
-
 //Allows customer to verify items in cart
 //Allows customer to verify or update shipping address
 //Allows customer to enter credit card number
@@ -124,7 +123,9 @@ class Checkout extends React.Component {
               <button
                 type="submit"
                 onClick={event => this.handleSubmit(event)}
-                disabled={!this.props.user.address}
+                disabled={
+                  !this.props.user.id ? false : !this.props.user.address
+                }
               >
                 Submit Order
               </button>

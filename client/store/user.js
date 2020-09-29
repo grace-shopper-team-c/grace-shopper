@@ -37,6 +37,11 @@ export const me = () => async dispatch => {
 export const updateUser = (userId, user) => {
   return async dispatch => {
     try {
+      if (userId === undefined) {
+        let guest = JSON.parse(localStorage.getItem('guest'))
+        guest.address = user
+        localStorage.setItem('guest', JSON.stringify(guest))
+      }
       const res = await axios.put(`/api/users/${userId}`, user)
       const updatedUser = res.data
       dispatch(getUser(updatedUser))
