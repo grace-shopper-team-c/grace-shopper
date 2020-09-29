@@ -41,7 +41,7 @@ router.post('/:orderId', async (req, res, next) => {
   }
 })
 
-//MAY NEED TO CHANGE THIS PATH
+//DELETE /api/order-items/:orderId&:itemId
 router.delete('/:orderId&:itemId', async (req, res, next) => {
   try {
     const rows = await OrderItem.destroy({
