@@ -20,6 +20,12 @@ Item.belongsToMany(Order, {through: OrderItem})
 Order.belongsTo(User)
 User.hasMany(Order)
 
+Item.beforeDestroy(item => {
+  if (!item.inventory) {
+    throw new Error('Item still has inventory to sell')
+  }
+})
+
 /**
  * If we had any associations to make, this would be a great place to put them!
  * ex. if we had another model called BlogPost, we might say:

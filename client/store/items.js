@@ -51,8 +51,12 @@ export const fetchAllItems = type => {
 export const deleteItem = item => {
   return async dispatch => {
     try {
-      await axios.delete(`/api/items/${item.id}`)
-      dispatch(removeItem(item))
+      if (item.inventory) {
+        throw new Error('Item still has inventory to sell')
+      } else {
+        await axios.delete(`/api/items/${item.id}`)
+        dispatch(removeItem(item))
+      }
     } catch (error) {
       console.error(error.message)
     }
