@@ -41,10 +41,11 @@ export const updateUser = (userId, user) => {
         let guest = JSON.parse(localStorage.getItem('guest'))
         guest.address = user
         localStorage.setItem('guest', JSON.stringify(guest))
+      } else {
+        const res = await axios.put(`/api/users/${userId}`, user)
+        const updatedUser = res.data
+        dispatch(getUser(updatedUser))
       }
-      const res = await axios.put(`/api/users/${userId}`, user)
-      const updatedUser = res.data
-      dispatch(getUser(updatedUser))
     } catch (error) {
       console.error(error.message)
     }

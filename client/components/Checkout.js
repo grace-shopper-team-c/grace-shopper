@@ -38,6 +38,8 @@ class Checkout extends React.Component {
   }
 
   render() {
+    // const guestAddress = JSON.parse(localStorage.getItem('guest')).address
+
     return (
       <div className="main">
         <Elements stripe={stripePromise}>
@@ -124,7 +126,8 @@ class Checkout extends React.Component {
                 type="submit"
                 onClick={event => this.handleSubmit(event)}
                 disabled={
-                  !this.props.user.id ? false : !this.props.user.address
+                  !this.props.user.address &&
+                  !JSON.parse(localStorage.getItem('guest')).cart.length > 0
                 }
               >
                 Submit Order
