@@ -39,7 +39,7 @@ export const updateUser = (userId, user) => {
     try {
       const res = await axios.put(`/api/users/${userId}`, user)
       const updatedUser = res.data
-      dispatch(updateExistingUser(updatedUser))
+      dispatch(getUser(updatedUser))
     } catch (error) {
       console.error(error.message)
     }

@@ -58,15 +58,18 @@ router.post('/:userId/orders', isLoggedInUser, async (req, res, next) => {
 //Updating user infomation
 router.put('/:userId', isLoggedInUser, async (req, res, next) => {
   try {
+    const userToUpdate = await User.findByPk(req.params.userId)
+
     let [updatedRows, updatedUser] = await User.update(req.body, {
       where: {id: req.params.userId},
       returning: true,
       plain: true
     })
-    if (updatedRows.length === 0) {
+
+    if (userToUpdate === null) {
       res.sendStatus(404)
-    } else {
-      res.status(204).send(updatedUser)
+    } else if (updatedUser) {
+      res.send(updatedUser)
     }
   } catch (err) {
     next(err)
