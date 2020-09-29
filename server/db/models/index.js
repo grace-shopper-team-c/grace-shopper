@@ -4,6 +4,7 @@ const Item = require('./item')
 const Order = require('./order')
 const Sequelize = require('sequelize')
 
+//OrderItem tracks the quanity of each item for each order
 const OrderItem = db.define('order_item', {
   quantity: {type: Sequelize.INTEGER, defaultValue: 1}
 })

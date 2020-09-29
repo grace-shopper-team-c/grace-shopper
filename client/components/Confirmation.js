@@ -1,5 +1,6 @@
 import React from 'react'
 
+//confirms the order was placed successfully
 export default class Confirmation extends React.Component {
   render() {
     return (

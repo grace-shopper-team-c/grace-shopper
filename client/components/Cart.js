@@ -4,6 +4,8 @@ import {Link} from 'react-router-dom'
 import {removeItemFromOrder, getCart, itemToAdd} from '../store/cart'
 import {me} from '../store/user'
 
+//Shows what items a customer wants to buy
+//allows the customer to remove items or change quanities
 class Cart extends React.Component {
   constructor() {
     super()
@@ -26,7 +28,7 @@ class Cart extends React.Component {
 
   async handleRemoval(evt, itemId) {
     evt.preventDefault()
-    await this.props.removeFromCart(itemId, this.props.user.id)
+    await this.props.removeFromCart(itemId, this.props.user.orderId)
   }
 
   render() {

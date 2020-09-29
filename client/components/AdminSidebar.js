@@ -1,8 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {fetchAllItems} from '../store/items'
+import {fetchAllItems, fetchOutOfStock} from '../store/items'
 
+//allows an Admin to naviage between admin routes and inventory views
 const AdminSidebar = props => {
   return (
     <aside>
@@ -22,43 +23,64 @@ const AdminSidebar = props => {
       >
         <h2>All Products</h2>
       </Link>
-      <h2>Filter By Category:</h2>
-      <Link
-        to="/admin/items"
-        className="filter"
-        onClick={() => props.getItems('skin')}
-      >
-        <h2>Skin Care</h2>
-      </Link>
-      <Link
-        to="/admin/items"
-        className="filter"
-        onClick={() => props.getItems('hair')}
-      >
-        <h2>Hair Care</h2>
-      </Link>
-      <Link
-        to="/admin/items"
-        className="filter"
-        onClick={() => props.getItems('cleaning')}
-      >
-        <h2>Cleaning Products</h2>
-      </Link>
-      <Link
-        to="/admin/items"
-        className="filter"
-        onClick={() => props.getItems('candle')}
-      >
-        <h2>Candles</h2>
-      </Link>
+      {/* the filters will only show up if the admin is on the items page. The admin can the filter the products down. */}
+      {props.location === '/admin/items' ? (
+        <div>
+          <h2>Filter By Category:</h2>
+          <Link
+            to="/admin/items"
+            className={props.filter === 'skin' ? 'filter_on' : 'filter'}
+            onClick={() => props.getItems('skin')}
+          >
+            <h2>Skin Care</h2>
+          </Link>
+          <Link
+            to="/admin/items"
+            className={props.filter === 'hair' ? 'filter_on' : 'filter'}
+            onClick={() => props.getItems('hair')}
+          >
+            <h2>Hair Care</h2>
+          </Link>
+          <Link
+            to="/admin/items"
+            className={props.filter === 'cleaning' ? 'filter_on' : 'filter'}
+            onClick={() => props.getItems('cleaning')}
+          >
+            <h2>Cleaning Products</h2>
+          </Link>
+          <Link
+            to="/admin/items"
+            className={props.filter === 'skin' ? 'filter_on' : 'filter'}
+            onClick={() => props.getItems('candle')}
+          >
+            <h2>Candles</h2>
+          </Link>
+          <Link
+            to="/admin/items"
+            className={props.filter === 'outOfStock' ? 'filter_on' : 'filter'}
+            onClick={() => props.outOfStock()}
+          >
+            <h2>Out Of Stock</h2>
+          </Link>
+        </div>
+      ) : (
+        ''
+      )}
     </aside>
   )
 }
 
-const mapDispatch = dispatch => {
+const mapState = state => {
   return {
-    getItems: type => dispatch(fetchAllItems(type))
+    filter: state.filter
   }
 }
 
-export default connect(null, mapDispatch)(AdminSidebar)
+const mapDispatch = dispatch => {
+  return {
+    getItems: type => dispatch(fetchAllItems(type)),
+    outOfStock: () => dispatch(fetchOutOfStock())
+  }
+}
+
+export default connect(mapState, mapDispatch)(AdminSidebar)

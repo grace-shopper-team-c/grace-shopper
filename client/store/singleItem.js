@@ -19,14 +19,14 @@ export const setItem = item => {
     item: item
   }
 }
-
+//tracking changes the admin is typing in and updating it in the store
 export const updateItemInfo = change => {
   return {
     type: UPDATE_ITEM_INFO,
     change
   }
 }
-
+//fetching one item
 export const fetchSingleItem = itemId => {
   return async dispatch => {
     try {
