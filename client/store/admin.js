@@ -18,7 +18,7 @@ export const fetchAllUsers = () => {
       const allUsers = response.data
       dispatch(getAllUsers(allUsers))
     } catch (error) {
-      console.log(error)
+      console.error(error.message)
     }
   }
 }

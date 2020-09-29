@@ -37,9 +37,7 @@ class NewItem extends React.Component {
     const stateKeys = Object.keys(this.state)
     await this.handleValidation(stateKeys)
     const notValid = stateKeys.filter(input => !this.state[input])
-    console.log(notValid)
     if (!notValid.length) {
-      console.log('hello')
       this.props.handleSubmit(this.props.item)
     }
   }
