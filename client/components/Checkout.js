@@ -4,7 +4,13 @@ import {getCart, placeOrder} from '../store/cart'
 import {updateUser, me} from '../store/user'
 import {Link} from 'react-router-dom'
 
-import {Elements, CardElement} from '@stripe/react-stripe-js'
+import {
+  Elements,
+  CardNumberElement,
+  CardExpiryElement,
+  CardCvcElement
+} from '@stripe/react-stripe-js'
+
 import {loadStripe} from '@stripe/stripe-js'
 import UpdateForm from './UpdateForm'
 
@@ -72,7 +78,7 @@ class Checkout extends React.Component {
           <UpdateForm updateAddress={this.props.updateAddress} />
           <div>
             <h2>Card Number:</h2>
-            <CardElement
+            <CardNumberElement
               options={{
                 style: {
                   base: {
@@ -84,6 +90,32 @@ class Checkout extends React.Component {
                   },
                   invalid: {
                     color: '#9e2146'
+                  }
+                }
+              }}
+            />
+            <CardExpiryElement
+              options={{
+                style: {
+                  base: {
+                    fontSize: '16px',
+                    color: '#424770',
+                    '::placeholder': {
+                      color: '#aab7c4'
+                    }
+                  }
+                }
+              }}
+            />
+            <CardCvcElement
+              options={{
+                style: {
+                  base: {
+                    fontSize: '16px',
+                    color: '#424770',
+                    '::placeholder': {
+                      color: '#aab7c4'
+                    }
                   }
                 }
               }}
