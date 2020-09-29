@@ -26,7 +26,7 @@ class Cart extends React.Component {
 
   async handleRemoval(evt, itemId) {
     evt.preventDefault()
-    await this.props.removeFromCart(itemId, this.props.user.id)
+    await this.props.removeFromCart(itemId, this.props.user.orderId)
   }
 
   render() {

@@ -57,7 +57,6 @@ router.put('/:userId', isLoggedInUser, async (req, res, next) => {
       returning: true,
       plain: true
     })
-
     if (updatedRows.length === 0) {
       res.sendStatus(404)
     } else {
