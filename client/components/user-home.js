@@ -7,7 +7,9 @@ import AdminSidebar from './AdminSidebar'
 /**
  * COMPONENT
  */
-
+//Account information page.
+//Show user infomation about their account and allows them to update thier address
+//Grants Admins access to their admin only routes
 export const UserHome = props => {
   const {email, address, city, state, zip, handleSubmit, id, isAdmin} = props
 

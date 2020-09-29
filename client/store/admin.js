@@ -10,7 +10,7 @@ const getAllUsers = allUsers => {
     allUsers
   }
 }
-
+//Admin only route that gets the email addresses and cities for the AdminUser view
 export const fetchAllUsers = () => {
   return async dispatch => {
     try {
@@ -18,7 +18,7 @@ export const fetchAllUsers = () => {
       const allUsers = response.data
       dispatch(getAllUsers(allUsers))
     } catch (error) {
-      console.log(error)
+      console.error(error.message)
     }
   }
 }

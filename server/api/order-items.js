@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Order, OrderItem, Item} = require('../db/models')
+const {OrderItem} = require('../db/models')
 
 // PUT /api/order-items/:orderId OR /api/order-items/:itemId
 router.put('/:orderId', async (req, res, next) => {
@@ -42,6 +42,9 @@ router.post('/:orderId', async (req, res, next) => {
 })
 
 //DELETE /api/order-items/:orderId&:itemId
+
+// Route for removing item from cart
+
 router.delete('/:orderId&:itemId', async (req, res, next) => {
   try {
     const rows = await OrderItem.destroy({
