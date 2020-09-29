@@ -28,13 +28,21 @@ describe('User routes', () => {
       expect(res.error.text).to.be.equal('User is not an admin!!!')
     })
 
-    // it('PUT /api/users/:userId', async () => {
-    //   const res = await request(app)
-    //     .put('api/users/0', {email: 'newemail@puppybook.com'})
-    //     .expect(204)
+    it('GET /api/users/:userId/orders', async () => {
+      const res = await request(app)
+        .get('/api/users/1/orders')
+        .expect(401)
 
-    //   expect(res.body).to.be.an('array')
-    //   expect(res.body[0].email).to.be.equal('newemail@puppybook.com')
-    // })
+      expect(res.error.text).to.be.equal('Wrong Account')
+    })
+
+    it('PUT /api/users/:userId', async () => {
+      const res = await request(app)
+        .put('/api/users/1')
+        .send({state: 'IL'})
+        .expect(401)
+
+      expect(res.error.text).to.be.equal('Wrong Account')
+    })
   }) // end describe('/api/users')
 }) // end describe('User routes')
