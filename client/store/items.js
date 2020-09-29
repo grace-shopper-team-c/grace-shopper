@@ -28,7 +28,8 @@ const addItem = item => {
     item
   }
 }
-
+//Getting all items in the data base or getting just the ones in a specific category
+//setting the filter for styling
 export const fetchAllItems = type => {
   return async dispatch => {
     try {
@@ -47,18 +48,22 @@ export const fetchAllItems = type => {
     }
   }
 }
-
+//Allowing an admin to delete an item
 export const deleteItem = item => {
   return async dispatch => {
     try {
-      await axios.delete(`/api/items/${item.id}`)
-      dispatch(removeItem(item))
+      if (item.inventory) {
+        throw new Error('Item still has inventory to sell')
+      } else {
+        await axios.delete(`/api/items/${item.id}`)
+        dispatch(removeItem(item))
+      }
     } catch (error) {
       console.error(error.message)
     }
   }
 }
-
+//creating or updating items in the inventory
 export const createOrUpdateItem = (item, history) => {
   return async dispatch => {
     try {
@@ -72,6 +77,20 @@ export const createOrUpdateItem = (item, history) => {
       }
       dispatch(setItem(newItem))
       history.push('/admin/items')
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
+}
+//Fetching only products that are out of stock
+//items with inventory of 0
+export const fetchOutOfStock = () => {
+  return async dispatch => {
+    try {
+      const response = await axios.get('/api/items/outOfStock')
+      const items = response.data
+      dispatch(setFilter('outOfStock'))
+      dispatch(getAllItems(items))
     } catch (error) {
       console.error(error.message)
     }

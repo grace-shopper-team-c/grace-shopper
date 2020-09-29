@@ -3,12 +3,17 @@ import {connect} from 'react-redux'
 import {getCart, placeOrder} from '../store/cart'
 import {updateUser, me} from '../store/user'
 import {Link} from 'react-router-dom'
+
 import {Elements, CardElement} from '@stripe/react-stripe-js'
 import {loadStripe} from '@stripe/stripe-js'
 import UpdateForm from './UpdateForm'
 
 const stripePromise = loadStripe('pk_test_JJ1eMdKN0Hp4UFJ6kWXWO4ix00jtXzq5XG')
 
+
+//Allows customer to verify items in cart
+//Allows customer to verify or update shipping address
+//Allows customer to enter credit card number
 class Checkout extends React.Component {
   constructor() {
     super()

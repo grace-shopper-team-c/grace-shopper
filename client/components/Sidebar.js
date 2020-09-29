@@ -13,6 +13,7 @@ const Sidebar = props => {
       >
         <h2>All Products</h2>
       </Link>
+      {/* Allows customers to filter Products by Category */}
       <h2>Filter By Category:</h2>
       <Link
         to="/"

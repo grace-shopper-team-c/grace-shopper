@@ -4,6 +4,8 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {itemToAdd, getCart} from '../store/cart'
 
+//Shows all products that are available for purchase by a customer.
+//Only show products that have inventory
 class AllItems extends React.Component {
   constructor() {
     super()
@@ -22,9 +24,11 @@ class AllItems extends React.Component {
   }
 
   render() {
+    // filtering out items with no inventory
+    const items = this.props.items.filter(item => item.inventory > 0)
     return (
       <div className="all_product_container">
-        {this.props.items.map(item => (
+        {items.map(item => (
           <Link className="product" to={`/item/${item.id}`} key={item.id}>
             <div>
               <img src={item.image} />

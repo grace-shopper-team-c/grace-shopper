@@ -42,6 +42,7 @@ class Routes extends Component {
             {/* Routes placed here are only available after logging in */}
             <Route exact path="/account" component={UserHome} />
             <Route exact path="/item/:itemId" component={SingleItem} />
+            {/* Routes only available to uses with admin rights */}
             {isAdmin && <Route path="/admin/users" component={AdminUser} />}
             {isAdmin && <Route path="/admin/items" component={AdminItems} />}
             {isAdmin && <Route path="/admin/update" component={AdminNewItem} />}

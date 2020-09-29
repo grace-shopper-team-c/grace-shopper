@@ -8,7 +8,8 @@ export const setFilter = filter => {
     filter
   }
 }
-
+//Just putting the filter in the redux store so that it can be accessed for styling and keep the code DRY
+//AKA not having repeat state on the Sidebar and AdminSidebar
 const filterReducer = (filter = initialFilter, action) => {
   switch (action.type) {
     case SET_FILTER:

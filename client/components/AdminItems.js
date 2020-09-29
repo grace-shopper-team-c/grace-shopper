@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import AdminSidebar from './AdminSidebar'
 import {fetchSingleItem} from '../store/singleItem'
 
+//Inventory Item view for the Admin, Allows them to update and remove products
 class AdminItems extends React.Component {
   constructor() {
     super()
@@ -21,7 +22,7 @@ class AdminItems extends React.Component {
   render() {
     return (
       <div className="main">
-        <AdminSidebar />
+        <AdminSidebar location={this.props.location.pathname} />
         <div className="all_product_container">
           <div className="welcome">
             <h3>Admin Inventory</h3>

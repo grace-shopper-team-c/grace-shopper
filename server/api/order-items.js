@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Order, OrderItem, Item} = require('../db/models')
+const {OrderItem} = require('../db/models')
 
 // PUT /api/order-items/:orderId OR /api/order-items/:itemId
 router.put('/:orderId', async (req, res, next) => {
@@ -41,39 +41,19 @@ router.post('/:orderId', async (req, res, next) => {
   }
 })
 
-//WILL NEED TO CHANGE THIS ROUTE
-// router.put('/order/:orderId', async (req, res, next) => {
-//   try {
-//     const order = await Order.findByPk(req.params.orderId)
-//     await order.update({
-//       fulfilled: req.body.fulfilled,
-//     })
-//     const items = await OrderItem.findAll({
-//       where: {orderId: req.params.orderId},
-//     })
-//     for (let i = 0; i < items.length; i++) {
-//       const item = await Item.findByPk(items[i].itemId)
-//       const inventory = item.inventory
-//       await item.update({
-//         inventory: inventory - items[i].quantity,
-//       })
-//     }
-//     res.status(201).end()
-//   } catch (error) {
-//     next(error)
-//   }
-// })
+//DELETE /api/order-items/:orderId&:itemId
 
-//MAY NEED TO CHANGE THIS PATH
+// Route for removing item from cart
+
 router.delete('/:orderId&:itemId', async (req, res, next) => {
   try {
-    await OrderItem.destroy({
+    const rows = await OrderItem.destroy({
       where: {
         orderId: req.params.orderId,
         itemId: req.params.itemId
       }
     })
-    res.send(200).end()
+    res.sendStatus(200).end()
   } catch (error) {
     next(error)
   }

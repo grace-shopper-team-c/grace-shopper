@@ -8,7 +8,9 @@ import UpdateForm from './UpdateForm'
 /**
  * COMPONENT
  */
-
+//Account information page.
+//Show user infomation about their account and allows them to update thier address
+//Grants Admins access to their admin only routes
 export const UserHome = props => {
   const {email, isAdmin} = props
 
