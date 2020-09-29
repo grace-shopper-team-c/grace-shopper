@@ -1,10 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getCart, placeOrder} from '../store/cart'
-import {updateUser} from '../store/user'
+import {updateUser, me} from '../store/user'
 import {Link} from 'react-router-dom'
-import {me} from '../store/user'
 
+//Allows customer to verify items in cart
+//Allows customer to verify or update shipping address
+//Allows customer to enter credit card number
 class Checkout extends React.Component {
   constructor() {
     super()

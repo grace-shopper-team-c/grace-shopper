@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {fetchSingleItem} from '../store/singleItem'
 import {itemToAdd} from '../store/cart'
 
+//view of one item. Allows customer to enter quanity  and add to cart
 class SingleItem extends React.Component {
   constructor() {
     super()

@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {fetchAllUsers} from '../store/admin'
 import AdminSidebar from './AdminSidebar'
 
+//Allows Admin so see a list of all user's email addresses, cities and states
 class AdminUser extends React.Component {
   componentDidMount() {
     this.props.findUsers()

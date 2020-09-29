@@ -34,7 +34,6 @@ const User = db.define('user', {
   },
   card: {
     type: Sequelize.BIGINT
-    // to add: isCreditCard
   },
   salt: {
     type: Sequelize.STRING,

@@ -4,6 +4,7 @@ const Item = require('./item')
 const Order = require('./order')
 const Sequelize = require('sequelize')
 
+//OrderItem tracks the quanity of each item for each order
 const OrderItem = db.define('order_item', {
   quantity: {type: Sequelize.INTEGER, defaultValue: 1}
 })
@@ -19,12 +20,6 @@ Item.belongsToMany(Order, {through: OrderItem})
 
 Order.belongsTo(User)
 User.hasMany(Order)
-
-Item.beforeDestroy(item => {
-  if (!item.inventory) {
-    throw new Error('Item still has inventory to sell')
-  }
-})
 
 /**
  * If we had any associations to make, this would be a great place to put them!

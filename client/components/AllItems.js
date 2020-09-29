@@ -4,6 +4,8 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {itemToAdd, getCart} from '../store/cart'
 
+//Shows all products that are available for purchase by a customer.
+//Only show products that have inventory
 class AllItems extends React.Component {
   constructor() {
     super()

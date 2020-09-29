@@ -4,6 +4,7 @@ import {createOrUpdateItem} from '../store/items'
 import AdminSidebar from './AdminSidebar'
 import {updateItemInfo} from '../store/singleItem'
 
+//Allows an admin to add or update an item in the inventory
 class NewItem extends React.Component {
   constructor() {
     super()
@@ -24,6 +25,8 @@ class NewItem extends React.Component {
   }
 
   handleValidation(stateKeys) {
+    //matching sure that the item info is valid
+    //changing local state so  validation error messages will be shown
     const item = this.props.item
     stateKeys.map(key => this.setState({[key]: true}))
     if (item.category === 'Select a Category') this.setState({validCat: false})

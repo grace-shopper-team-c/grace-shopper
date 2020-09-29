@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {fetchAllItems, fetchOutOfStock} from '../store/items'
 
+//allows an Admin to naviage between admin routes and inventory views
 const AdminSidebar = props => {
   return (
     <aside>
@@ -22,6 +23,7 @@ const AdminSidebar = props => {
       >
         <h2>All Products</h2>
       </Link>
+      {/* the filters will only show up if the admin is on the items page. The admin can the filter the products down. */}
       {props.location === '/admin/items' ? (
         <div>
           <h2>Filter By Category:</h2>

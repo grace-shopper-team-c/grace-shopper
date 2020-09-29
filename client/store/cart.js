@@ -131,14 +131,12 @@ export const itemToAdd = (item, userId, qty) => {
         if (filteredCart.length === 1) {
           const {data} = await axios.put(`/api/order-items/${orderId}`, {
             item,
-            /* orderId, */
             qty
           })
           dispatch(updateCart(data))
         } else {
           const {data} = await axios.post(`/api/order-items/${orderId}`, {
             item,
-            /* orderId, */
             qty
           })
           item.order_item = data
