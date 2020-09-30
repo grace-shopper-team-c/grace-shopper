@@ -38,8 +38,6 @@ class Checkout extends React.Component {
   }
 
   render() {
-    // const guestAddress = JSON.parse(localStorage.getItem('guest')).address
-
     return (
       <div className="main">
         <Elements stripe={stripePromise}>

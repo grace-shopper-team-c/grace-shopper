@@ -20,7 +20,13 @@ const defaultUser = {}
 const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
 export const addOrderId = id => ({type: ADD_ORDER_ID, id})
-const updateExistingUser = user => ({type: UPDATE_USER, user})
+const updateExistingUser = (address, state, city, zip) => ({
+  type: UPDATE_USER,
+  address,
+  state,
+  city,
+  zip
+})
 
 /**
  * THUNK CREATORS
@@ -34,7 +40,7 @@ export const me = () => async dispatch => {
   }
 }
 
-export const updateUser = (userId, user) => {
+export const updateUser = (userId, user, orderId) => {
   return async dispatch => {
     try {
       if (userId === undefined) {
@@ -44,7 +50,14 @@ export const updateUser = (userId, user) => {
       } else {
         const res = await axios.put(`/api/users/${userId}`, user)
         const updatedUser = res.data
-        dispatch(getUser(updatedUser))
+        dispatch(
+          updateExistingUser(
+            updatedUser.address,
+            updatedUser.state,
+            updatedUser.city,
+            updatedUser.zip
+          )
+        )
       }
     } catch (error) {
       console.error(error.message)
@@ -90,7 +103,13 @@ export default function(state = defaultUser, action) {
     case ADD_ORDER_ID:
       return {...state, orderId: action.id}
     case UPDATE_USER:
-      return action.user
+      return {
+        ...state,
+        address: action.address,
+        state: action.state,
+        city: action.city,
+        zip: action.zip
+      }
     default:
       return state
   }
